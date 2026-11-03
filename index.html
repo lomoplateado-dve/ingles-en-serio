@@ -1,0 +1,1429 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#2E49D8"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Inglés en Serio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: phone-first study app — compact header, bottom tab bar on phones (top tabs on wide screens), one 760px working column */
+:root{
+  --bg:#F3F5FA; --surface:#FFFFFF; --sunk:#E9EDF6; --ink:#151B34; --muted:#59627F; --line:#D9DFEC;
+  --accent:#2E49D8; --accent-ink:#FFFFFF; --accent-soft:#E4E9FF;
+  --good:#1D7F53; --good-soft:#DFF2E7; --bad:#BF3328; --bad-soft:#FBE4E1; --warm:#B86F05; --warm-soft:#FCEFD6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", "Noto Sans Mono", Consolas, monospace;
+  --r:14px; --navh:64px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1120; --surface:#161B2E; --sunk:#1D2338; --ink:#E7EAF5; --muted:#9AA3C1; --line:#2A3150;
+  --accent:#8196FF; --accent-ink:#0D1120; --accent-soft:#1E2652;
+  --good:#4CC38A; --good-soft:#12301F; --bad:#FF7D70; --bad-soft:#3A1915; --warm:#F2B23C; --warm-soft:#33260C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1120; --surface:#161B2E; --sunk:#1D2338; --ink:#E7EAF5; --muted:#9AA3C1; --line:#2A3150;
+  --accent:#8196FF; --accent-ink:#0D1120; --accent-soft:#1E2652;
+  --good:#4CC38A; --good-soft:#12301F; --bad:#FF7D70; --bad-soft:#3A1915; --warm:#F2B23C; --warm-soft:#33260C; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* header + nav */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.head .wrap{display:flex;align-items:center;gap:12px;padding-block:12px 0;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;line-height:1}
+.brand span{color:var(--accent)}
+.head-tools{margin-left:auto;display:flex;gap:8px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-size:.82rem;font-weight:700;background:var(--warm-soft);color:var(--warm);white-space:nowrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:.8rem;flex:none}
+.seg button{border:0;background:transparent;padding:6px 11px;color:var(--muted);font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.bnav{display:flex;gap:2px;width:100%;margin-top:6px}
+.bnav button{border:0;background:none;padding:10px 14px 11px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;display:inline-flex;align-items:center;gap:7px;font-size:.92rem}
+.bnav svg{width:19px;height:19px}
+.bnav button[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+.bnav button[aria-current="page"] svg{color:var(--accent)}
+.subnav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.subnav::-webkit-scrollbar{display:none}
+.subnav button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:700;font-size:.88rem;color:var(--muted);white-space:nowrap}
+.subnav button[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+
+main{padding-block:20px 64px}
+section.view{display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--f-display);letter-spacing:-.02em;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:1.8rem;font-weight:800}
+h2{font-size:1.25rem;font-weight:800}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.lede{color:var(--muted);max-width:62ch}
+.eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sync{font-size:.85rem;color:var(--muted)}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 16px;font-weight:700;display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:44px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--accent);padding-inline:8px}
+.btn.wide{width:100%}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.speak{border:1px solid var(--line);background:var(--sunk);border-radius:999px;width:38px;height:38px;display:inline-grid;place-items:center;flex:none;color:var(--accent)}
+.speak:hover{border-color:var(--accent)}
+.speak svg{width:17px;height:17px}
+.kbd{font-family:var(--f-mono);font-size:.7rem;border:1px solid currentColor;border-radius:4px;padding:0 5px;opacity:.7;margin-left:4px}
+select{border:1.5px solid var(--line);border-radius:10px;background:var(--surface);padding:9px 10px;max-width:100%;min-height:44px}
+
+/* hoy */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.stat b{display:block;font-family:var(--f-display);font-size:1.8rem;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8rem;color:var(--muted)}
+.plan-item{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.plan-item:first-child{border-top:0}
+.check{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;color:var(--accent-ink)}
+.plan-item.done .check{background:var(--good);border-color:var(--good)}
+.bar{height:6px;background:var(--sunk);border-radius:99px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+.plan-item.done .bar i{background:var(--good)}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.level{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 12px;text-align:left}
+.level b{font-family:var(--f-mono);font-size:1rem}
+.level small{display:block;color:var(--muted);font-size:.78rem;line-height:1.3}
+.level[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.phrase-day{display:flex;gap:14px;align-items:flex-start}
+.phrase-day .en{font-family:var(--f-display);font-size:1.4rem;font-weight:800;line-height:1.2}
+.cta{background:var(--accent-soft);border-color:transparent}
+
+/* chips */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:.85rem;font-weight:700;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+/* flashcard */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 20px;min-height:300px;display:flex;flex-direction:column;gap:14px}
+.q{font-size:1.3rem;line-height:1.35}
+.ans{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:12px}
+.en{font-family:var(--f-display);font-weight:800;font-size:1.6rem;line-height:1.15;letter-spacing:-.015em;overflow-wrap:anywhere}
+.line{display:flex;gap:10px;align-items:center;min-width:0}
+.line > :last-child{min-width:0}
+.ex{font-style:italic}
+.note{background:var(--warm-soft);border-radius:10px;padding:10px 12px;font-size:.93rem}
+.note b{color:var(--warm)}
+.rate{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:auto}
+.rate button{border:1px solid var(--line);background:var(--sunk);border-radius:10px;padding:10px 2px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.9rem;min-height:56px}
+.rate button small{font-weight:400;color:var(--muted);font-size:.72rem;font-family:var(--f-mono)}
+.rate .r1{color:var(--bad)} .rate .r4{color:var(--good)}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+.tag{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:3px 8px;align-self:flex-start}
+.empty{text-align:center;padding:36px 18px;display:flex;flex-direction:column;align-items:center;gap:12px}
+
+/* mcq */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:13px 14px;text-align:left;font-size:1.05rem;display:flex;gap:12px;align-items:center;min-height:52px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt .k{font-family:var(--f-mono);font-size:.75rem;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:1px 6px;flex:none}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.why{border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.why.ok{background:var(--good-soft)} .why.no{background:var(--bad-soft)}
+.why strong{font-family:var(--f-display)}
+.progress{height:6px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+
+/* grammar */
+.lessons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lesson{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px}
+.lesson:hover{border-color:var(--accent)}
+.lesson b{font-family:var(--f-display);font-size:1.02rem}
+.lv{font-family:var(--f-mono);font-size:.7rem;padding:2px 7px;border-radius:5px;background:var(--sunk);color:var(--muted);align-self:flex-start}
+.done-badge{font-size:.78rem;color:var(--good);font-weight:700}
+.explain{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* listen / speak */
+.bigplay{display:flex;gap:10px}
+.bigplay .btn{flex:1;min-height:56px;font-size:1.05rem}
+.diff{display:flex;flex-wrap:wrap;gap:6px;font-size:1.1rem}
+.diff span{padding:2px 8px;border-radius:6px}
+.diff .ok{background:var(--good-soft);color:var(--good)}
+.diff .miss{background:var(--bad-soft);color:var(--bad);text-decoration:underline wavy}
+.score{font-family:var(--f-display);font-weight:800;font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+.howto{font-size:.9rem;color:var(--muted);background:var(--sunk);border-radius:10px;padding:10px 12px}
+.howto summary{cursor:pointer;font-weight:700;color:var(--ink)}
+.howto ol{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 13px;resize:vertical;min-height:56px;font-size:16px}
+textarea:focus{border-color:var(--accent);outline:none}
+
+/* pronunciation */
+.sounds{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sound{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
+.ipa{font-family:var(--f-mono);color:var(--accent);font-size:.95rem}
+.sound p{font-size:.92rem;color:var(--muted)}
+.pairs{display:flex;flex-wrap:wrap;gap:6px}
+.pair{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.pair button,.word{border:0;background:var(--sunk);padding:7px 12px;font-weight:700;font-size:.92rem}
+.word{border:1px solid var(--line);border-radius:999px}
+.pair button+button{border-left:1px solid var(--line)}
+.pair button:hover,.word:hover{background:var(--accent-soft);color:var(--accent)}
+.grp-label{font-size:.78rem;color:var(--muted);font-family:var(--f-mono)}
+.test{background:var(--sunk);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.test .row button{flex:1}
+
+/* chat */
+.scen{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.scen button{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:4px}
+.scen button:hover{border-color:var(--accent)}
+.scen b{font-family:var(--f-display);font-size:1.02rem}
+.scen small{color:var(--muted);font-size:.82rem}
+.chat{display:flex;flex-direction:column;gap:12px;min-height:200px}
+.msg{max-width:90%;display:flex;flex-direction:column;gap:6px;min-width:0}
+.msg .bubble{padding:11px 14px;border-radius:16px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end}
+.msg.me .bubble{background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px}
+.msg.tu .bubble{background:var(--sunk);border-bottom-left-radius:4px}
+.msg.tu .who{display:flex;align-items:center;gap:8px;font-size:.75rem;color:var(--muted);font-family:var(--f-mono)}
+.fb{font-size:.92rem;border-radius:10px;padding:9px 12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.fb.fix{background:var(--warm-soft)} .fb.okk{background:var(--good-soft)}
+.composer{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:14px}
+.hints{display:flex;flex-direction:column;gap:6px}
+.hint{text-align:left;border:1px dashed var(--accent);background:var(--accent-soft);border-radius:10px;padding:8px 12px}
+.hint small{display:block;color:var(--muted)}
+.report ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.err{color:var(--bad);font-size:.92rem}
+.thinking{color:var(--muted);font-style:italic}
+.tr-opt{display:flex;flex-direction:column;gap:6px;padding:14px 0;border-top:1px solid var(--line)}
+.tr-opt:first-child{border-top:0;padding-top:0}
+.tr-opt .en{font-size:1.25rem;font-weight:600}
+.reg{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:5px;background:var(--sunk);color:var(--muted)}
+
+@media (max-width:700px){
+  .bnav{position:fixed;left:0;right:0;bottom:0;z-index:6;margin:0;background:var(--surface);border-top:1px solid var(--line);
+    padding:4px max(8px,env(safe-area-inset-right,0px)) calc(4px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .bnav button{flex:1;flex-direction:column;gap:2px;font-size:.72rem;padding:6px 2px;border-bottom:0;border-radius:10px}
+  .bnav button[aria-current="page"]{background:var(--accent-soft)}
+  .head .wrap{padding-block:10px}
+  main{padding-bottom:calc(var(--navh) + 40px + env(safe-area-inset-bottom,0px))}
+  .stats{grid-template-columns:1fr 1fr}
+  .sounds,.lessons,.levels{grid-template-columns:1fr}
+  h1{font-size:1.5rem}
+  .en{font-size:1.35rem}
+  .q{font-size:1.15rem}
+  .lede{font-size:.95rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+</head><body><header class="head">
+  <div class="wrap">
+    <div class="brand">Inglés <span>en Serio</span></div>
+    <div class="head-tools">
+      <span class="pill" id="streakPill" title="Días seguidos practicando">Racha 0</span>
+      <div class="seg" role="group" aria-label="Velocidad de la voz">
+        <button id="spNormal" aria-pressed="true">1×</button><button id="spSlow" aria-pressed="false">Lento</button>
+      </div>
+    </div>
+    <nav class="bnav" aria-label="Secciones">
+      <button data-group="hoy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>Hoy</button>
+      <button data-group="aprender"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 8h6"/></svg>Aprender</button>
+      <button data-group="practicar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Practicar</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="subnav" id="subnav" hidden></div>
+
+  <!-- HOY -->
+  <section class="view" id="v-hoy">
+    <div>
+      <p class="eyebrow" id="todayLabel">Hoy</p>
+      <h1>Tu práctica de hoy</h1>
+      <p class="lede">Quince minutos diarios valen más que tres horas el domingo. Completa el plan y tu racha sube.</p>
+    </div>
+    <div class="box cta stack" id="placeCta" hidden>
+      <h2>¿No sabes tu nivel?</h2>
+      <p>Haz el examen de ubicación: 15 preguntas, unos 5 minutos. La app ajusta el tutor y las lecciones a tu nivel.</p>
+      <button class="btn primary" id="placeBtn" style="align-self:flex-start">Hacer examen de nivel</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="stStreak">0</b><span>días de racha</span></div>
+      <div class="stat"><b id="stDue">0</b><span>tarjetas para hoy</span></div>
+      <div class="stat"><b id="stMastered">0</b><span>frases dominadas</span></div>
+      <div class="stat"><b id="stAcc">–</b><span>aciertos en ejercicios</span></div>
+    </div>
+    <div class="box">
+      <h2>Plan del día</h2>
+      <div id="plan" style="margin-top:8px"></div>
+    </div>
+    <div class="box phrase-day" id="phraseDay"></div>
+    <div class="box stack">
+      <div><h2>Tu nivel</h2><p class="lede">El tutor, el traductor y las lecciones se ajustan a este nivel (escala europea MCER).</p></div>
+      <div class="levels" id="levels"></div>
+      <button class="btn ghost" id="placeAgain" style="align-self:flex-start">Volver a hacer el examen de nivel</button>
+    </div>
+    <div class="box stack">
+      <div><h2>Voz</h2><p class="lede">Elige la voz en inglés que mejor se escuche en tu celular. Las que dicen “Natural”, “Google” o “Enhanced” suelen sonar menos robóticas.</p></div>
+      <div class="row"><select id="voiceSel" aria-label="Voz en inglés"></select><button class="btn" id="voiceTest">Probar</button></div>
+      <p class="sync" id="voiceNote"></p>
+    </div>
+    <div class="box stack"><h2>Tutor con IA</h2><p class="lede">La conversación con el tutor y el traductor “¿Cómo se dice?” necesitan Claude, así que viven en la versión web. Ábrela con tu cuenta de Claude:</p><a class="btn" style="align-self:flex-start;text-decoration:none" href="https://claude.ai/artifact/9WuXWkBZgHx4o88MUbLj8C" target="_blank" rel="noopener">Abrir el tutor en Claude</a></div>
+    <p class="sync" id="syncNote">Tu progreso se guarda en este celular.</p>
+  </section>
+
+  <!-- NIVEL -->
+  <section class="view" id="v-nivel" hidden>
+    <div>
+      <p class="eyebrow">Examen de ubicación</p>
+      <h1>¿Cuál es tu nivel?</h1>
+      <p class="lede">Contesta sin diccionario. Si no sabes, elige la que te suene mejor: así el resultado es real.</p>
+    </div>
+    <div id="placeArea"></div>
+  </section>
+
+  <!-- TARJETAS -->
+  <section class="view" id="v-tarjetas" hidden>
+    <div>
+      <p class="eyebrow">Repaso espaciado</p>
+      <h1>Frases que de verdad se usan</h1>
+      <p class="lede">Lee la idea en español y dila en inglés en voz alta antes de voltear. Las que te cuestan vuelven pronto; las que dominas se espacian.</p>
+    </div>
+    <div class="chips" id="cats"></div>
+    <div id="cardArea"></div>
+  </section>
+
+  <!-- GRAMÁTICA -->
+  <section class="view" id="v-gramatica" hidden>
+    <div id="gramArea" class="stack" style="gap:18px"></div>
+  </section>
+
+  <!-- ERRORES -->
+  <section class="view" id="v-errores" hidden>
+    <div>
+      <p class="eyebrow">Errores de hispanohablantes</p>
+      <h1>Lo que el español te hace decir mal</h1>
+      <p class="lede">Traducir palabra por palabra produce errores que un nativo nota al instante. Elige la opción que suena natural.</p>
+    </div>
+    <div id="quizArea"></div>
+  </section>
+
+  <!-- ESCUCHAR -->
+  <section class="view" id="v-escuchar" hidden>
+    <div>
+      <p class="eyebrow">Comprensión auditiva</p>
+      <h1>Escucha y escribe</h1>
+      <p class="lede">Oye la frase completa y escríbela. Entrena el oído para el inglés hablado, donde las palabras se pegan unas con otras.</p>
+    </div>
+    <div id="listenArea"></div>
+  </section>
+
+  <!-- HABLAR -->
+  <section class="view" id="v-hablar" hidden>
+    <div>
+      <p class="eyebrow">Práctica oral</p>
+      <h1>Habla y compárate</h1>
+      <p class="lede">Dicta la frase con el micrófono del teclado de tu celular. Si el dictado escribe lo correcto, se te entendió bien. Si escribe otra cosa, ahí está lo que debes corregir.</p>
+    </div>
+    <details class="howto" id="howto">
+      <summary>Cómo activar el dictado en inglés</summary>
+      <ol>
+        <li><b>Android (Gboard):</b> Ajustes de Gboard › Idiomas › agrega “English (US)”. En el teclado, mantén presionada la barra espaciadora o toca el globo para cambiar a inglés y luego toca el micrófono.</li>
+        <li><b>iPhone:</b> Ajustes › General › Teclado › Teclados › agrega “English (US)”. Cambia al teclado en inglés con el globo y toca el micrófono.</li>
+        <li>Si el dictado está en español, va a escribir en español. Siempre cambia a inglés antes de hablar.</li>
+      </ol>
+    </details>
+    <div id="speakArea"></div>
+  </section>
+
+  <!-- PRONUNCIACIÓN -->
+  <section class="view" id="v-pron" hidden>
+    <div>
+      <p class="eyebrow">Sonidos que no existen en español</p>
+      <h1>Pronunciación</h1>
+      <p class="lede">Toca cada palabra para oírla y repítela. Con “Ponme a prueba” escuchas una palabra y adivinas cuál fue: entrenar el oído es la mitad del trabajo.</p>
+    </div>
+    <p class="err" id="ttsWarn" hidden>Este navegador no tiene voces en inglés, así que el audio no va a sonar. Los consejos siguen sirviendo.</p>
+    <div class="sounds" id="sounds"></div>
+  </section>
+
+  <!-- CONVERSAR -->
+  <section class="view" id="v-conversar" hidden>
+    <div>
+      <p class="eyebrow">Tutor con IA</p>
+      <h1>Conversa sin miedo</h1>
+      <p class="lede">Elige una situación real. El tutor actúa su papel, te responde en inglés y debajo te corrige en español. Puedes dictar tus respuestas con el micrófono del teclado.</p>
+    </div>
+    <div id="chatArea"></div>
+  </section>
+
+  <!-- DECIR -->
+  <section class="view" id="v-decir" hidden>
+    <div>
+      <p class="eyebrow">Del español al inglés natural</p>
+      <h1>¿Cómo se dice?</h1>
+      <p class="lede">Escribe lo que quieres decir tal como lo dirías en español, con modismos y todo. Recibes cómo lo diría un nativo y lo puedes guardar en tus tarjetas.</p>
+    </div>
+    <div class="box stack">
+      <label for="trIn" class="eyebrow">Lo que quieres decir</label>
+      <textarea id="trIn" rows="3" placeholder="Ej.: Se me hizo tarde porque había mucho tráfico"></textarea>
+      <div class="chips" id="trExamples"></div>
+      <div class="row"><button class="btn primary" id="trBtn">Dímelo en inglés natural</button><span class="sync" id="trStatus"></span></div>
+    </div>
+    <div id="trOut"></div>
+  </section>
+</main>
+
+<script>
+(function(){
+"use strict";
+/* =============== DATA =============== */
+const CATS = ["Conversación","Trabajo","Viajes","Salud y trámites","Conectores","Phrasal verbs"];
+const CARDS = [
+ {id:"c1",cat:"Conversación",es:"Tengo muchas ganas (de que llegue).",en:"I'm looking forward to it.",ex:"The trip is next week and I'm really looking forward to it.",note:"Después de “looking forward to” el verbo va con -ing: “I'm looking forward to seeing you”."},
+ {id:"c2",cat:"Conversación",es:"¿Me lo puede repetir, por favor?",en:"Could you say that again, please?",ex:"Sorry, could you say that again, please? It's a bit loud here.",note:"Suena más natural que “Repeat, please”, que se oye brusco."},
+ {id:"c3",cat:"Conversación",es:"¿Qué quieres decir con…?",en:"What do you mean by…?",ex:"What do you mean by flexible hours?"},
+ {id:"c4",cat:"Conversación",es:"Creo que no te estoy entendiendo.",en:"I'm not sure I follow.",ex:"I'm not sure I follow. Can you give me an example?"},
+ {id:"c5",cat:"Conversación",es:"Tiene sentido.",en:"That makes sense.",ex:"Oh, okay. That makes sense.",note:"Es “make sense”, no “have sense”."},
+ {id:"c6",cat:"Conversación",es:"Estoy acostumbrado a trabajar tarde.",en:"I'm used to working late.",ex:"Don't worry, I'm used to working late.",note:"“Be used to” + -ing = estar acostumbrado. No confundir con “used to” = solía."},
+ {id:"c7",cat:"Conversación",es:"Antes vivía en Monterrey.",en:"I used to live in Monterrey.",ex:"I used to live in Monterrey, but now I live in Querétaro.",note:"“Used to” + verbo base = solía / antes hacía."},
+ {id:"c8",cat:"Conversación",es:"¿Qué tal? ¿Cómo vas?",en:"How's it going?",ex:"Hey Mike! How's it going?",note:"Respuesta típica: “Pretty good, you?”. Nadie contesta “I'm fine, thank you, and you?”."},
+ {id:"c9",cat:"Conversación",es:"Voy tarde.",en:"I'm running late.",ex:"Sorry, I'm running late. I'll be there in ten minutes."},
+ {id:"c10",cat:"Conversación",es:"Tú decides.",en:"It's up to you.",ex:"Pizza or tacos? It's up to you."},
+ {id:"c11",cat:"Conversación",es:"No te preocupes, no hay problema.",en:"No worries.",ex:"Sorry I'm late. No worries, we just started."},
+ {id:"c12",cat:"Conversación",es:"Lamento escuchar eso.",en:"I'm sorry to hear that.",ex:"You lost your job? I'm sorry to hear that."},
+ {id:"c13",cat:"Conversación",es:"No importa, olvídalo.",en:"Never mind.",ex:"Never mind, I found my keys."},
+ {id:"c14",cat:"Conversación",es:"¿Cuánto tiempo llevas viviendo aquí?",en:"How long have you been living here?",ex:"How long have you been living in Chicago?",note:"“Llevar + tiempo” se dice con present perfect: “I've been living here for two years”."},
+ {id:"c53",cat:"Conversación",es:"¿A qué te dedicas?",en:"What do you do for a living?",ex:"So, what do you do for a living?",note:"No preguntes “What is your work?”. También se dice solo “What do you do?”."},
+ {id:"c54",cat:"Conversación",es:"¡Cuánto tiempo sin verte!",en:"Long time no see!",ex:"Hey, long time no see! How have you been?"},
+ {id:"c55",cat:"Conversación",es:"Ya me tengo que ir.",en:"I've got to go.",ex:"Sorry, I've got to go. Talk soon!"},
+ {id:"c56",cat:"Conversación",es:"¿Qué hiciste el fin de semana?",en:"What did you do over the weekend?",ex:"What did you do over the weekend? Anything fun?"},
+ {id:"c57",cat:"Conversación",es:"Nada especial. ¿Y tú?",en:"Not much. You?",ex:"What's new? Not much, you?"},
+ {id:"c58",cat:"Conversación",es:"¡Qué padre!",en:"That's awesome!",ex:"You got the job? That's awesome!"},
+ {id:"c59",cat:"Conversación",es:"¿Neta? ¿En serio?",en:"Seriously?",ex:"Seriously? I can't believe it.",note:"También: “Really?” o, con sorpresa fuerte, “No way!”."},
+ {id:"c60",cat:"Conversación",es:"Me da igual (amable).",en:"I don't mind.",ex:"Coffee or tea? I don't mind.",note:"“I don't care” puede sonar grosero. “I don't mind” es amable."},
+ {id:"c61",cat:"Conversación",es:"Tienes razón.",en:"You're right.",ex:"You're right, I should call her.",note:"No es “You have reason”."},
+ {id:"c62",cat:"Conversación",es:"Creo que no.",en:"I don't think so.",ex:"Is it going to rain? I don't think so.",note:"“I think not” suena anticuado. Lo natural es “I don't think so”."},
+ {id:"c63",cat:"Conversación",es:"¿Te molesta si me siento aquí?",en:"Do you mind if I sit here?",ex:"Excuse me, do you mind if I sit here?",note:"Ojo: si no le molesta, la respuesta es “No, go ahead”."},
+ {id:"c15",cat:"Trabajo",es:"Te respondo luego. / Te aviso.",en:"I'll get back to you.",ex:"Let me check with my team and I'll get back to you tomorrow."},
+ {id:"c16",cat:"Trabajo",es:"Nos ponemos en contacto la próxima semana.",en:"Let's touch base next week.",ex:"Let's touch base next week to see how the project is going."},
+ {id:"c17",cat:"Trabajo",es:"Estoy a cargo del equipo de ventas.",en:"I'm in charge of the sales team.",ex:"I'm in charge of the sales team in the north region."},
+ {id:"c18",cat:"Trabajo",es:"Tengo cinco años de experiencia en ventas.",en:"I have five years of experience in sales.",ex:"I have five years of experience in sales and customer service.",note:"Es “experience in” un campo. Nunca “I have experience of five years”."},
+ {id:"c19",cat:"Trabajo",es:"Mi mayor fortaleza es resolver problemas.",en:"My main strength is solving problems.",ex:"My main strength is solving problems under pressure."},
+ {id:"c20",cat:"Trabajo",es:"¿Me explicas el proceso paso a paso?",en:"Could you walk me through the process?",ex:"Could you walk me through the onboarding process?"},
+ {id:"c21",cat:"Trabajo",es:"Solo para aclarar…",en:"Just to clarify…",ex:"Just to clarify, the deadline is Friday, right?"},
+ {id:"c22",cat:"Trabajo",es:"¿Puedes organizar una reunión?",en:"Can you set up a meeting?",ex:"Can you set up a meeting with the client for Thursday?"},
+ {id:"c23",cat:"Trabajo",es:"Llamo por lo de mi factura.",en:"I'm calling about my bill.",ex:"Hi, I'm calling about my bill. I was charged twice.",note:"“Call about” = llamar por un asunto. Nada de “I call for”."},
+ {id:"c24",cat:"Trabajo",es:"¿Me lo puede deletrear?",en:"Could you spell that, please?",ex:"Could you spell your last name, please?"},
+ {id:"c64",cat:"Trabajo",es:"Estoy buscando trabajo.",en:"I'm looking for a job.",ex:"I'm looking for a job in logistics."},
+ {id:"c65",cat:"Trabajo",es:"¿Para cuándo es?",en:"What's the deadline?",ex:"What's the deadline for the report?"},
+ {id:"c66",cat:"Trabajo",es:"Te mando el archivo por correo.",en:"I'll email you the file.",ex:"I'll email you the file after lunch."},
+ {id:"c67",cat:"Trabajo",es:"Quedo atento a tus comentarios.",en:"I look forward to hearing from you.",ex:"Thank you for your time. I look forward to hearing from you.",note:"Cierre típico de correo. “Quedo atento” no se traduce literal."},
+ {id:"c68",cat:"Trabajo",es:"¿Podemos mover la junta?",en:"Can we reschedule the meeting?",ex:"Something came up. Can we reschedule the meeting?"},
+ {id:"c69",cat:"Trabajo",es:"Yo me encargo.",en:"I'll take care of it.",ex:"Don't worry about the client. I'll take care of it."},
+ {id:"c70",cat:"Trabajo",es:"Lo tengo listo a más tardar el viernes.",en:"I'll have it ready by Friday.",ex:"I'll have the presentation ready by Friday.",note:"“By” = a más tardar. “Until” = hasta (de forma continua)."},
+ {id:"c71",cat:"Trabajo",es:"Trabajo desde casa.",en:"I work from home.",ex:"I work from home three days a week.",note:"Es “from home”, no “in home”."},
+ {id:"c72",cat:"Trabajo",es:"Me corrieron.",en:"I got fired.",ex:"I got fired last month, so I'm looking for something new.",note:"Más suave: “I was let go”. Renunciar = “quit” o “resign”."},
+ {id:"c25",cat:"Viajes",es:"¿Me da un café para llevar?",en:"Can I get a coffee to go?",ex:"Can I get a medium coffee to go, please?",note:"En EE. UU. se pide con “Can I get…?”. “I want…” se oye exigente."},
+ {id:"c26",cat:"Viajes",es:"¿Me trae la cuenta, por favor?",en:"Could I have the check, please?",ex:"Excuse me, could I have the check, please?",note:"En EE. UU. es “check”; en Reino Unido, “bill”."},
+ {id:"c27",cat:"Viajes",es:"¿Viene con papas?",en:"Does it come with fries?",ex:"Does the burger come with fries or a salad?"},
+ {id:"c28",cat:"Viajes",es:"Quisiera reservar una mesa para dos.",en:"I'd like to book a table for two.",ex:"I'd like to book a table for two at seven, please."},
+ {id:"c29",cat:"Viajes",es:"¿Dónde está el baño?",en:"Where's the restroom?",ex:"Excuse me, where's the restroom?",note:"En lugares públicos de EE. UU. se dice “restroom”. “Bathroom” es más de casa."},
+ {id:"c30",cat:"Viajes",es:"Vengo de vacaciones.",en:"I'm here on vacation.",ex:"I'm here on vacation for two weeks.",note:"Es “on vacation” y “on business”, con “on”."},
+ {id:"c31",cat:"Viajes",es:"No tengo nada que declarar.",en:"I have nothing to declare.",ex:"No, I have nothing to declare."},
+ {id:"c32",cat:"Viajes",es:"¿Le molestaría tomarnos una foto?",en:"Would you mind taking a picture of us?",ex:"Excuse me, would you mind taking a picture of us?",note:"“Would you mind” va seguido de -ing."},
+ {id:"c73",cat:"Viajes",es:"Tengo una reservación a nombre de López.",en:"I have a reservation under López.",ex:"Hi, I have a reservation under López for three nights."},
+ {id:"c74",cat:"Viajes",es:"¿Cuánto cuesta?",en:"How much is it?",ex:"How much is it for one night?"},
+ {id:"c75",cat:"Viajes",es:"¿Aceptan tarjeta?",en:"Do you take cards?",ex:"Do you take cards or cash only?"},
+ {id:"c76",cat:"Viajes",es:"Perdí mi vuelo.",en:"I missed my flight.",ex:"I missed my flight because of the traffic.",note:"Perder un vuelo o un camión es “miss”. “Lose” es extraviar algo."},
+ {id:"c77",cat:"Viajes",es:"¿Cómo llego al centro?",en:"How do I get downtown?",ex:"Excuse me, how do I get downtown from here?"},
+ {id:"c78",cat:"Viajes",es:"Solo estoy viendo, gracias.",en:"I'm just looking, thanks.",ex:"Can I help you? I'm just looking, thanks."},
+ {id:"c79",cat:"Viajes",es:"¿Lo tiene en otra talla?",en:"Do you have this in a different size?",ex:"Do you have this in a smaller size?"},
+ {id:"c80",cat:"Viajes",es:"¿Para comer aquí o para llevar?",en:"For here or to go?",ex:"For here or to go? To go, please."},
+ {id:"c33",cat:"Salud y trámites",es:"Me duele aquí.",en:"It hurts here.",ex:"It hurts here when I breathe."},
+ {id:"c34",cat:"Salud y trámites",es:"Me siento mal desde el lunes.",en:"I've been feeling sick since Monday.",ex:"I've been feeling sick since Monday and I have a fever.",note:"Algo que empezó y sigue: present perfect + since/for."},
+ {id:"c35",cat:"Salud y trámites",es:"Tengo gripa.",en:"I have a cold.",ex:"I can't come today, I have a bad cold.",note:"“Cold” = resfriado leve; “the flu” = gripa fuerte (influenza)."},
+ {id:"c36",cat:"Salud y trámites",es:"Soy alérgico a la penicilina.",en:"I'm allergic to penicillin.",ex:"Just so you know, I'm allergic to penicillin."},
+ {id:"c37",cat:"Salud y trámites",es:"Tengo que llenar este formulario.",en:"I need to fill out this form.",ex:"Where do I need to fill out this form?"},
+ {id:"c81",cat:"Salud y trámites",es:"Necesito ver a un doctor.",en:"I need to see a doctor.",ex:"I need to see a doctor as soon as possible."},
+ {id:"c82",cat:"Salud y trámites",es:"Me torcí el tobillo.",en:"I sprained my ankle.",ex:"I sprained my ankle playing soccer."},
+ {id:"c83",cat:"Salud y trámites",es:"¿Cada cuánto me lo tomo?",en:"How often should I take it?",ex:"How often should I take this medicine?"},
+ {id:"c84",cat:"Salud y trámites",es:"Tengo cita a las tres.",en:"I have an appointment at three.",ex:"I have an appointment with Dr. Smith at three.",note:"Cita médica o de trabajo = appointment. Cita romántica = date."},
+ {id:"c85",cat:"Salud y trámites",es:"¿Dónde firmo?",en:"Where do I sign?",ex:"Okay, where do I sign?"},
+ {id:"c86",cat:"Salud y trámites",es:"¿Qué documentos necesito?",en:"What documents do I need?",ex:"What documents do I need to open an account?"},
+ {id:"c38",cat:"Conectores",es:"Hasta donde sé…",en:"As far as I know…",ex:"As far as I know, the store opens at nine."},
+ {id:"c39",cat:"Conectores",es:"Por otro lado…",en:"On the other hand…",ex:"It's expensive. On the other hand, it lasts for years."},
+ {id:"c40",cat:"Conectores",es:"En realidad / De hecho…",en:"Actually,…",ex:"Actually, I've never been to Canada.",note:"“Actually” NO es “actualmente”. Actualmente = “currently” o “nowadays”."},
+ {id:"c41",cat:"Conectores",es:"Por cierto…",en:"By the way…",ex:"By the way, did you call your mom?"},
+ {id:"c42",cat:"Conectores",es:"En fin… / Como sea…",en:"Anyway,…",ex:"Anyway, let's get back to work."},
+ {id:"c43",cat:"Conectores",es:"Depende del precio.",en:"It depends on the price.",ex:"It depends on the price and the location.",note:"Siempre “depend ON”, nunca “depend of”."},
+ {id:"c87",cat:"Conectores",es:"Por eso…",en:"That's why…",ex:"I was really tired. That's why I left early."},
+ {id:"c88",cat:"Conectores",es:"Aunque…",en:"Even though…",ex:"Even though it was raining, we went out."},
+ {id:"c89",cat:"Conectores",es:"Aun así…",en:"Still,…",ex:"It was expensive. Still, it was worth it."},
+ {id:"c90",cat:"Conectores",es:"Al final…",en:"In the end,…",ex:"In the end, we decided to stay home.",note:"“At the end” es al final de algo físico o un periodo: at the end of the street, at the end of May."},
+ {id:"c91",cat:"Conectores",es:"Mientras tanto…",en:"Meanwhile,…",ex:"I'll cook. Meanwhile, you can set the table."},
+ {id:"c92",cat:"Conectores",es:"En vez de eso…",en:"Instead,…",ex:"We didn't go to the beach. Instead, we went to a museum."},
+ {id:"c44",cat:"Phrasal verbs",es:"No logro entender esto.",en:"I can't figure this out.",ex:"I can't figure out how this app works.",note:"figure out = descifrar, resolver."},
+ {id:"c45",cat:"Phrasal verbs",es:"Me enteré de que cancelaron el vuelo.",en:"I found out the flight was canceled.",ex:"I just found out the flight was canceled.",note:"find out = enterarse, averiguar."},
+ {id:"c46",cat:"Phrasal verbs",es:"Se nos acabó la leche.",en:"We ran out of milk.",ex:"We ran out of milk, can you buy some?",note:"run out of = quedarse sin algo."},
+ {id:"c47",cat:"Phrasal verbs",es:"Me llevo bien con mi jefe.",en:"I get along with my boss.",ex:"I get along really well with my coworkers."},
+ {id:"c48",cat:"Phrasal verbs",es:"Paso por ti a las ocho.",en:"I'll pick you up at eight.",ex:"I'll pick you up at the airport at eight."},
+ {id:"c49",cat:"Phrasal verbs",es:"Nunca llegó.",en:"He never showed up.",ex:"We waited an hour, but he never showed up."},
+ {id:"c50",cat:"Phrasal verbs",es:"No te rindas.",en:"Don't give up.",ex:"Learning English is hard, but don't give up."},
+ {id:"c51",cat:"Phrasal verbs",es:"Rechazaron mi oferta.",en:"They turned down my offer.",ex:"They turned down my offer, so I'm still looking."},
+ {id:"c52",cat:"Phrasal verbs",es:"Búscalo en internet.",en:"Look it up online.",ex:"I don't know that word. Let me look it up."},
+ {id:"c93",cat:"Phrasal verbs",es:"¿Me cuidas a los niños?",en:"Can you look after the kids?",ex:"Can you look after the kids tonight?"},
+ {id:"c94",cat:"Phrasal verbs",es:"Hay que ponernos al día.",en:"We should catch up.",ex:"We should grab coffee and catch up."},
+ {id:"c95",cat:"Phrasal verbs",es:"Salimos a pasar el rato.",en:"We hung out.",ex:"We hung out at the mall all afternoon.",note:"hang out (hung out) = pasar el rato con alguien."},
+ {id:"c96",cat:"Phrasal verbs",es:"Quítate los zapatos, por favor.",en:"Please take off your shoes.",ex:"Please take off your shoes before you come in."},
+ {id:"c97",cat:"Phrasal verbs",es:"¿Me lo puedo probar?",en:"Can I try it on?",ex:"I like this jacket. Can I try it on?"},
+ {id:"c98",cat:"Phrasal verbs",es:"Cancelaron la junta.",en:"They called off the meeting.",ex:"They called off the meeting because the boss was sick."},
+ {id:"c99",cat:"Phrasal verbs",es:"No lo dejes para mañana.",en:"Don't put it off.",ex:"Don't put it off until tomorrow."},
+ {id:"c100",cat:"Phrasal verbs",es:"Cálmate.",en:"Calm down.",ex:"Calm down, everything is going to be okay."}
+];
+const QUIZ = [
+ {id:"q1",ctx:"Quieres decir “tengo 30 años”.",opts:["I'm 30 years old.","I have 30 years.","I have 30 years old."],why:"La edad se dice con el verbo “be”, no con “have”. También puedes decir solo “I'm 30”."},
+ {id:"q2",ctx:"“La gente es muy amable aquí.”",opts:["People are very friendly here.","People is very friendly here.","The people is very friendly here."],why:"“People” es plural en inglés, así que va con “are”."},
+ {id:"q3",ctx:"“Depende del clima.”",opts:["It depends on the weather.","It depends of the weather.","Depends of the weather."],why:"Es “depend on”, nunca “depend of”. Y la oración necesita sujeto: “It”."},
+ {id:"q4",ctx:"“Está lloviendo.”",opts:["It's raining.","Is raining.","Is raining now."],why:"En inglés toda oración necesita sujeto. Para el clima y la hora se usa “it”."},
+ {id:"q5",ctx:"“Estoy de acuerdo.”",opts:["I agree.","I am agree.","I'm agree with."],why:"“Agree” ya es verbo. No necesita “am”."},
+ {id:"q6",ctx:"“A ella no le gusta el café.”",opts:["She doesn't like coffee.","She don't like coffee.","She no like coffee."],why:"Con he/she/it el auxiliar es “doesn't”."},
+ {id:"q7",ctx:"“No fui a la fiesta.”",opts:["I didn't go to the party.","I didn't went to the party.","I no went to the party."],why:"Después de “didn't”, el verbo regresa a su forma base: go, no went."},
+ {id:"q8",ctx:"“Explícame el problema.”",opts:["Explain the problem to me.","Explain me the problem.","Explain to me the problem."],why:"“Explain” no lleva a la persona justo después. Es “explain something to someone”."},
+ {id:"q9",ctx:"“Estoy casado con Ana.”",opts:["I'm married to Ana.","I'm married with Ana.","I'm marry with Ana."],why:"Se dice “married TO”, no “with”."},
+ {id:"q10",ctx:"“Estoy aburrido en esta clase.”",opts:["I'm bored in this class.","I'm boring in this class."],why:"-ed describe cómo te sientes (bored). “I'm boring” significa “soy aburrido”."},
+ {id:"q11",ctx:"“Actualmente vivo en Puebla.”",opts:["Currently, I live in Puebla.","Actually, I live in Puebla."],why:"Falso amigo: “actually” significa “en realidad”. Actualmente = “currently” o “now”."},
+ {id:"q12",ctx:"Quieres decir “me dio mucha pena”.",opts:["I was so embarrassed.","I was so embarrassing.","I was so pregnant."],why:"“Embarrassed” = apenado. ¡Ojo! “Embarazada” es “pregnant”, y no tiene nada que ver."},
+ {id:"q13",ctx:"“Asistí a la junta.”",opts:["I attended the meeting.","I assisted the meeting.","I assisted to the meeting."],why:"Falso amigo: “assist” es ayudar. Asistir a un evento es “attend”."},
+ {id:"q14",ctx:"“Compré un libro en la librería.”",opts:["I bought a book at the bookstore.","I bought a book at the library."],why:"Falso amigo: “library” es biblioteca. Librería = “bookstore”."},
+ {id:"q15",ctx:"“¿Puedo hacer una pregunta?”",opts:["Can I ask a question?","Can I make a question?","Can I do a question?"],why:"Las preguntas se “ask”, no se “make”."},
+ {id:"q16",ctx:"“Tengo hambre.”",opts:["I'm hungry.","I have hungry.","I have hunger."],why:"Hambre, sed, frío y calor se dicen con “be”: I'm hungry, thirsty, cold, hot."},
+ {id:"q17",ctx:"“Vivo aquí desde 2020.”",opts:["I've lived here since 2020.","I live here since 2020.","I'm living here since 2020."],why:"Algo que empezó en el pasado y continúa va en present perfect: “I've lived” o “I've been living”."},
+ {id:"q18",ctx:"“Trabajo aquí desde hace tres años.”",opts:["I've worked here for three years.","I work here since three years.","I've worked here since three years."],why:"Con una cantidad de tiempo se usa “for”. “Since” va con un punto de inicio (since 2022)."},
+ {id:"q19",ctx:"“Es más fácil de lo que pensé.”",opts:["It's easier than I thought.","It's more easy than I thought.","It's more easier than I thought."],why:"Adjetivos cortos forman el comparativo con -er: easy → easier."},
+ {id:"q20",ctx:"“Necesito más información.”",opts:["I need more information.","I need more informations.","I need more an information."],why:"“Information” es incontable: no lleva -s. Igual “advice”, “furniture”, “news”."},
+ {id:"q21",ctx:"“Gano 15,000 pesos al mes.”",opts:["I earn 15,000 pesos a month.","I win 15,000 pesos a month.","I gain 15,000 pesos for month."],why:"El dinero del trabajo se “earn”. “Win” es ganar un premio o un partido."},
+ {id:"q22",ctx:"“Recuérdame llamar a mi mamá.”",opts:["Remind me to call my mom.","Remember me to call my mom.","Remember me call my mom."],why:"“Remind” es hacer que alguien recuerde. “Remember” es recordar tú mismo."},
+ {id:"q23",ctx:"“¿Me prestas tu pluma?”",opts:["Can you lend me your pen?","Can you borrow me your pen?","Can I lend your pen?"],why:"“Lend” = prestar (dar). “Borrow” = pedir prestado: “Can I borrow your pen?”."},
+ {id:"q24",ctx:"“Pon los papeles en la carpeta.”",opts:["Put the papers in the folder.","Put the papers in the carpet."],why:"Falso amigo: “carpet” es alfombra. Carpeta = “folder”."},
+ {id:"q25",ctx:"“El proyecto fue un éxito.”",opts:["The project was a success.","The project was an exit."],why:"Falso amigo: “exit” es salida. Éxito = “success”."},
+ {id:"q26",ctx:"“Realizamos una encuesta.”",opts:["We carried out a survey.","We realized a survey."],why:"“Realize” significa darse cuenta. Realizar (llevar a cabo) = “carry out” o “conduct”."},
+ {id:"q27",ctx:"“Vamos a hablar del plan.”",opts:["Let's discuss the plan.","Let's discuss about the plan."],why:"“Discuss” va directo, sin “about”. Y “discutir” en el sentido de pelear es “argue”."},
+ {id:"q28",ctx:"“El coche rojo es mío.”",opts:["The red car is mine.","The car red is mine.","The car red is my."],why:"El adjetivo va antes del sustantivo. Y “mío” sin sustantivo es “mine”."},
+ {id:"q29",ctx:"“Me voy a mi casa.”",opts:["I'm going home.","I'm going to my home.","I'm going to home."],why:"“Home” no lleva “to” después de verbos de movimiento: go home, come home, get home."},
+ {id:"q30",ctx:"“Mi hermano es más alto que yo.”",opts:["My brother is taller than me.","My brother is more tall that me.","My brother is taller that me."],why:"Para comparar se usa “than”, no “that”."},
+ {id:"q31",ctx:"“¿Cómo se dice esto en inglés?”",opts:["How do you say this in English?","How is said this in English?","How it says this in English?"],why:"La forma natural es “How do you say…?”. También: “What's this called in English?”."},
+ {id:"q32",ctx:"“¿Cómo es tu jefe?” (su forma de ser)",opts:["What's your boss like?","How is your boss like?","How is your boss?"],why:"“What … like?” pregunta cómo es alguien. “How is your boss?” pregunta cómo está."},
+ {id:"q33",ctx:"“Hace dos años que no lo veo.”",opts:["I haven't seen him for two years.","I don't see him since two years.","I don't see him two years ago."],why:"Present perfect negativo + for: “I haven't seen him for two years”."},
+ {id:"q34",ctx:"“Fui al doctor hace dos días.”",opts:["I went to the doctor two days ago.","I went to the doctor before two days.","I went to the doctor since two days."],why:"“Hace + tiempo” en pasado se dice con “ago”, al final: two days ago."},
+ {id:"q35",ctx:"“Mañana voy al cine.” (ya es plan)",opts:["I'm going to the movies tomorrow.","I go to the movies tomorrow.","I will to go to the movies tomorrow."],why:"Planes ya decididos: “going to” o presente continuo. Después de “will” nunca va “to”."},
+ {id:"q36",ctx:"“Si tengo tiempo, te llamo.”",opts:["If I have time, I'll call you.","If I will have time, I call you.","If I will have time, I will call you."],why:"Primer condicional: If + presente, will + verbo. Nunca “will” justo después de “if”."},
+ {id:"q37",ctx:"“Si fuera rico, viajaría.”",opts:["If I were rich, I would travel.","If I am rich, I would travel.","If I would be rich, I would travel."],why:"Segundo condicional: If + pasado, would + verbo. Con “be” se usa “were”."},
+ {id:"q38",ctx:"“No tienes que venir.” (no es obligatorio)",opts:["You don't have to come.","You mustn't come."],why:"“Mustn't” significa que está prohibido. “Don't have to” = no es necesario."},
+ {id:"q39",ctx:"“Él sabe nadar muy bien.”",opts:["He can swim very well.","He can to swim very well.","He cans swim very well."],why:"Después de “can” no va “to”, y “can” nunca lleva -s."},
+ {id:"q40",ctx:"“Hay muchos carros.”",opts:["There are a lot of cars.","There is a lot of cars.","Have a lot of cars."],why:"“Hay” = there is (singular) / there are (plural). Nunca “have”."},
+ {id:"q41",ctx:"“¿Cuánto dinero tienes?”",opts:["How much money do you have?","How many money do you have?","How much money you have?"],why:"“Money” es incontable: much. Y la pregunta necesita “do”."},
+ {id:"q42",ctx:"“Llegué a la casa a las nueve.”",opts:["I got home at nine.","I arrived to home at nine.","I arrived to the house at nine."],why:"Nunca “arrive to”: es arrive in / arrive at. Y con “home” no va preposición."},
+ {id:"q43",ctx:"“Te veo el lunes.”",opts:["See you on Monday.","See you in Monday.","See you at Monday."],why:"Días: on. Meses y años: in. Horas: at."},
+ {id:"q44",ctx:"“Nací en 1995.”",opts:["I was born in 1995.","I born in 1995.","I am born in 1995."],why:"“Nacer” se dice en pasiva: I was born."},
+ {id:"q45",ctx:"“Me gusta jugar fútbol.”",opts:["I like playing soccer.","I like play soccer.","Me like playing soccer."],why:"Después de “like” va -ing o to + verbo. En EE. UU., el fútbol es “soccer”."},
+ {id:"q46",ctx:"“Tengo frío.”",opts:["I'm cold.","I have cold.","I have a cold."],why:"“I have a cold” = estoy resfriado. La sensación de frío es “I'm cold”."},
+ {id:"q47",ctx:"“Tomé una decisión.”",opts:["I made a decision.","I took a decision.","I did a decision."],why:"En inglés americano las decisiones se “make”."},
+ {id:"q48",ctx:"“Pon atención.”",opts:["Pay attention.","Put attention.","Make attention."],why:"La atención se “pay”: pay attention."},
+ {id:"q49",ctx:"“¿Me haces un favor?”",opts:["Can you do me a favor?","Can you make me a favor?"],why:"Los favores se “do”."},
+ {id:"q50",ctx:"“Mi hermana es muy sensible.” (se emociona fácil)",opts:["My sister is very sensitive.","My sister is very sensible."],why:"Falso amigo: “sensible” en inglés significa sensato. Sensible (emocional) = “sensitive”."},
+ {id:"q51",ctx:"“Estoy emocionado por el viaje.”",opts:["I'm excited about the trip.","I'm exciting about the trip.","I'm emotional about the trip."],why:"Ilusionado o emocionado por algo bueno = “excited”. “Emotional” es sentimental, a punto de llorar."},
+ {id:"q52",ctx:"“Hoy me quedo en casa.”",opts:["I'm staying home today.","I'm resting home today.","I'm keeping at home today."],why:"Quedarse = “stay”. “Rest” significa descansar."},
+ {id:"q53",ctx:"“Cuando llegue, te marco.”",opts:["When I get there, I'll call you.","When I will get there, I'll call you.","When I arrive there, I call you."],why:"Igual que con “if”: después de “when” (futuro) va presente, no “will”."}
+];
+const GRAMMAR = [
+ {id:"g1",lv:"A2",title:"Presente simple y presente continuo",
+  explain:["Presente simple: rutinas, hábitos y verdades. “I work in an office.” Con he/she/it el verbo lleva -s: “She works”.","Presente continuo (am/is/are + -ing): lo que pasa ahora o en estos días. “I'm working from home this week.”","Verbos de estado (like, want, know, need, believe) casi nunca van en -ing: “I want coffee”, no “I'm wanting coffee”."],
+  examples:[["I usually take the bus to work.","Normalmente tomo el camión al trabajo."],["I'm taking an Uber today.","Hoy voy en Uber."]],
+  ex:[{s:"She ___ in a hospital. She's a nurse.",opts:["works","is working","work"],why:"Trabajo permanente: presente simple. Con “she”, el verbo lleva -s."},
+      {s:"Shh! The baby ___.",opts:["is sleeping","sleeps","sleep"],why:"Pasa en este momento: presente continuo."},
+      {s:"I ___ what you mean.",opts:["know","am knowing","knows"],why:"“Know” es verbo de estado: no va en -ing."},
+      {s:"What ___ you usually ___ on weekends?",opts:["do / do","are / doing","does / do"],why:"Hábito: presente simple, y la pregunta se forma con “do”."}]},
+ {id:"g2",lv:"A2",title:"Pasado simple",
+  explain:["Acciones terminadas en un momento del pasado: yesterday, last week, in 2019, two days ago.","Regulares con -ed (worked, played). Irregulares hay que aprenderlos: go → went, have → had, make → made, buy → bought, see → saw.","Negativo y pregunta con “did” + verbo base: “I didn't go”, “Did you see it?”. El pasado ya lo lleva “did”."],
+  examples:[["We went to Cancún last summer.","Fuimos a Cancún el verano pasado."],["Did you call him?","¿Le llamaste?"]],
+  ex:[{s:"Yesterday I ___ a new phone.",opts:["bought","buyed","buy"],why:"“Buy” es irregular: bought."},
+      {s:"___ you watch the game last night?",opts:["Did","Do","Were"],why:"Pregunta en pasado con un verbo normal: “Did”."},
+      {s:"She didn't ___ the email.",opts:["send","sent","sends"],why:"Después de “didn't” va el verbo base."},
+      {s:"We ___ in Guadalajara two years ago.",opts:["lived","have lived","live"],why:"Con “ago” siempre va pasado simple."}]},
+ {id:"g3",lv:"B1",title:"Present perfect",
+  explain:["Se forma con have/has + participio (worked, been, seen, done).","Experiencias sin fecha: “Have you ever been to New York?” “I've never tried sushi.”","Algo que empezó y sigue: “I've lived here for three years / since 2022.”","Si dices cuándo pasó (yesterday, in 2020), usa pasado simple: “I saw it yesterday”."],
+  examples:[["Have you ever been to Canada?","¿Alguna vez has ido a Canadá?"],["I've worked here since March.","Trabajo aquí desde marzo."]],
+  ex:[{s:"I ___ to Canada three times.",opts:["have been","have went","am been"],why:"Experiencia sin fecha: have + participio (been)."},
+      {s:"She ___ here since March.",opts:["has worked","works","worked"],why:"Empezó en marzo y sigue: present perfect."},
+      {s:"Have you ever ___ tacos al pastor?",opts:["eaten","ate","eat"],why:"Después de “have” va el participio: eaten."},
+      {s:"I ___ him last Friday.",opts:["saw","have seen","have saw"],why:"“Last Friday” es un momento concreto: pasado simple."}]},
+ {id:"g4",lv:"B1",title:"Futuro: will, going to y presente continuo",
+  explain:["Going to: planes ya decididos o algo que se ve venir. “I'm going to study tonight.” “Look at those clouds, it's going to rain.”","Will: decisiones en el momento, promesas y ofrecimientos. “I'll help you.” “I'll have the chicken.”","Presente continuo: citas con hora y lugar. “I'm meeting my boss at ten.”"],
+  examples:[["I'll call you later.","Te llamo al rato."],["We're going to buy a car.","Vamos a comprar un carro."]],
+  ex:[{s:"The phone is ringing. — I ___ get it!",opts:["'ll","'m going to","'m"],why:"Decisión en el momento: will (I'll)."},
+      {s:"We ___ buy a house next year. We've already saved the money.",opts:["are going to","will to","are"],why:"Plan ya decidido: going to."},
+      {s:"I ___ my dentist at four tomorrow.",opts:["am seeing","see","will to see"],why:"Cita con hora: presente continuo."},
+      {s:"Don't worry, I ___ tell anyone.",opts:["won't","don't will","am not"],why:"Promesa: will not = won't."}]},
+ {id:"g5",lv:"A2",title:"Comparativos y superlativos",
+  explain:["Adjetivos cortos: -er / the -est. cheap → cheaper → the cheapest.","Terminados en -y: easy → easier → the easiest.","Largos: more / the most. expensive → more expensive → the most expensive.","Irregulares: good → better → the best; bad → worse → the worst. Para comparar se usa “than”."],
+  examples:[["This one is cheaper than that one.","Este es más barato que ese."],["It's the best taco place in town.","Es la mejor taquería de la ciudad."]],
+  ex:[{s:"This phone is ___ than mine.",opts:["cheaper","more cheap","cheapest"],why:"Adjetivo corto: -er + than."},
+      {s:"It's the ___ restaurant in town.",opts:["best","better","most good"],why:"Superlativo irregular de good: the best."},
+      {s:"English is ___ than I thought.",opts:["easier","more easy","easyer"],why:"easy → easier (la -y cambia a -i)."},
+      {s:"This is the ___ expensive hotel we've seen.",opts:["most","more","much"],why:"Adjetivo largo en superlativo: the most."}]},
+ {id:"g6",lv:"B1",title:"Condicionales",
+  explain:["Cero: verdades. If + presente, presente. “If you heat ice, it melts.”","Primero: algo posible. If + presente, will. “If it rains, I'll stay home.”","Segundo: algo imaginario. If + pasado, would. “If I had more time, I would learn guitar.” Con “be” se usa “were”: “If I were you…”.","Nunca pongas will o would justo después de if."],
+  examples:[["If I see him, I'll tell him.","Si lo veo, le digo."],["If I were you, I'd take the job.","Yo que tú, aceptaría el trabajo."]],
+  ex:[{s:"If it ___ tomorrow, we'll cancel the trip.",opts:["rains","will rain","would rain"],why:"Después de “if” va presente, aunque hables del futuro."},
+      {s:"If I ___ you, I would accept the offer.",opts:["were","am","would be"],why:"Segundo condicional con be: If I were."},
+      {s:"If I won the lottery, I ___ quit my job.",opts:["would","will","did"],why:"Situación imaginaria: would."},
+      {s:"If you mix red and blue, you ___ purple.",opts:["get","would get","got"],why:"Es una verdad general: condicional cero."}]},
+ {id:"g7",lv:"B1",title:"Verbos modales",
+  explain:["can / can't: habilidad o permiso. could: más cortés, o pasado de can.","should: consejo. “You should see a doctor.”","must / have to: obligación. mustn't: prohibido. don't have to: no es necesario.","Después de un modal va el verbo base, sin “to” y sin -s: “She can swim”."],
+  examples:[["You should try it.","Deberías probarlo."],["Could you help me?","¿Me podrías ayudar?"]],
+  ex:[{s:"You look tired. You ___ get some rest.",opts:["should","must to","can to"],why:"Consejo: should + verbo base."},
+      {s:"You ___ smoke here. It's forbidden.",opts:["mustn't","don't have to","shouldn't to"],why:"Prohibido: mustn't."},
+      {s:"Tomorrow is Sunday, so I ___ work.",opts:["don't have to","mustn't","can't to"],why:"No es necesario: don't have to."},
+      {s:"___ you help me with this box, please?",opts:["Could","Should","Must"],why:"Petición cortés: Could you…?"}]},
+ {id:"g8",lv:"A2",title:"In, on, at (tiempo y lugar)",
+  explain:["AT: horas y puntos exactos. at 5 o'clock, at night, at the door, at work.","ON: días, fechas y superficies. on Monday, on July 4th, on the table.","IN: meses, años, partes del día, espacios cerrados, ciudades y países. in May, in 2024, in the morning, in the car, in Mexico."],
+  examples:[["See you on Friday at six.","Nos vemos el viernes a las seis."],["I live in Puebla.","Vivo en Puebla."]],
+  ex:[{s:"My birthday is ___ June.",opts:["in","on","at"],why:"Meses: in."},
+      {s:"The meeting is ___ Tuesday ___ 10 a.m.",opts:["on / at","in / at","at / on"],why:"Días: on. Horas: at."},
+      {s:"I'll see you ___ the morning.",opts:["in","on","at"],why:"Partes del día: in the morning (pero at night)."},
+      {s:"She's waiting ___ the bus stop.",opts:["at","in","on"],why:"Punto exacto: at."}]},
+ {id:"g9",lv:"A2",title:"Cómo hacer preguntas",
+  explain:["En presente usa do/does; en pasado, did. El verbo queda en base: “Where do you live?” “What did she say?”","Con “be” no hace falta “do”: “Are you ready?” “Where is the station?”","Preguntas indirectas (más corteses) usan el orden normal: “Do you know where the station is?”, no “where is the station”."],
+  examples:[["Where do you work?","¿Dónde trabajas?"],["Do you know what time it is?","¿Sabes qué hora es?"]],
+  ex:[{s:"Where ___ you work?",opts:["do","are","does"],why:"Presente con “you”: do."},
+      {s:"What time ___ the store open?",opts:["does","do","is"],why:"“The store” = it: does."},
+      {s:"Can you tell me where the restroom ___?",opts:["is","is it","does"],why:"Pregunta indirecta: orden normal (the restroom is)."},
+      {s:"Why ___ you call me yesterday?",opts:["didn't","don't","wasn't"],why:"Pasado con verbo normal: didn't."}]},
+ {id:"g10",lv:"A2",title:"Contables e incontables",
+  explain:["Contables: apples, chairs, friends. Usan many, a few, a/an.","Incontables: water, money, information, advice, furniture, news. Usan much, a little, y no llevan a/an ni -s.","“A lot of” y “some” funcionan con ambos. “Any” se usa en negativos y preguntas."],
+  examples:[["How many people are coming?","¿Cuántas personas vienen?"],["I need some advice.","Necesito un consejo."]],
+  ex:[{s:"How ___ people came to the party?",opts:["many","much","a lot"],why:"People es contable: many."},
+      {s:"I don't have ___ money right now.",opts:["much","many","a few"],why:"Money es incontable: much."},
+      {s:"Can you give me some ___?",opts:["advice","advices","an advice"],why:"Advice es incontable: sin -s y sin “an”."},
+      {s:"There isn't ___ milk left.",opts:["any","some","many"],why:"Negativo: any."}]}
+];
+const PLACEMENT = [
+ {s:"She ___ a teacher.",opts:["is","are","have"]},
+ {s:"I ___ like coffee.",opts:["don't","doesn't","not"]},
+ {s:"There ___ two cats in the house.",opts:["are","is","have"]},
+ {s:"Yesterday we ___ to the beach.",opts:["went","go","goed"]},
+ {s:"He's ___ than his brother.",opts:["taller","more tall","tallest"]},
+ {s:"I ___ TV when you called.",opts:["was watching","watched","am watching"]},
+ {s:"Have you ever ___ to Europe?",opts:["been","go","went"]},
+ {s:"If it rains, we ___ at home.",opts:["will stay","would stay","stayed"]},
+ {s:"I've lived here ___ 2019.",opts:["since","for","from"]},
+ {s:"You ___ wear a seatbelt. It's the law.",opts:["must","should to","can"]},
+ {s:"The report ___ by the manager yesterday.",opts:["was written","wrote","has written"]},
+ {s:"If I ___ more money, I'd buy a car.",opts:["had","have","would have"]},
+ {s:"I'm not used to ___ up so early.",opts:["getting","get","got"]},
+ {s:"She asked me where I ___.",opts:["lived","did live","do live"]},
+ {s:"If I had known, I ___ you.",opts:["would have told","would tell","will tell"]}
+];
+const SOUNDS = [
+ {id:"s1",title:"Vocal corta vs. larga",ipa:"/ɪ/ · /iː/",tip:"La /ɪ/ corta es relajada, casi entre “i” y “e”. La /iː/ larga es una “i” estirada, como sonriendo. Si las confundes, “ship” (barco) suena a “sheep” (oveja).",pairs:[["ship","sheep"],["live","leave"],["sit","seat"],["fill","feel"],["hit","heat"]]},
+ {id:"s2",title:"TH sin voz",ipa:"/θ/",tip:"Saca un poquito la punta de la lengua entre los dientes y sopla sin vibrar. No es “t” ni “s”.",pairs:[["thin","tin"],["three","tree"],["thank","tank"],["think","sink"]]},
+ {id:"s3",title:"TH con voz",ipa:"/ð/",tip:"La misma posición de lengua, pero ahora la garganta vibra. Se parece a la “d” suave de “nada”.",pairs:[["they","day"],["then","den"],["those","doze"],["breathe","breeze"]]},
+ {id:"s4",title:"B vs. V",ipa:"/b/ · /v/",tip:"En inglés son sonidos distintos. Para la V, apoya los dientes de arriba en el labio de abajo y vibra. Para la B, junta los labios.",pairs:[["berry","very"],["ban","van"],["best","vest"],["boat","vote"]]},
+ {id:"s5",title:"SH vs. CH",ipa:"/ʃ/ · /tʃ/",tip:"SH es un sonido continuo, como cuando pides silencio: “shhh”. CH es un golpe corto, como en “chile”.",pairs:[["share","chair"],["ship","chip"],["wash","watch"],["shoes","choose"]]},
+ {id:"s6",title:"Y vs. J",ipa:"/j/ · /dʒ/",tip:"La Y inglesa es suave, como la “i” de “hielo”. La J es fuerte, como una “ch” con voz: “dch”.",pairs:[["yet","jet"],["yes","Jess"],["yellow","Jell-O"],["year","jeer"]]},
+ {id:"s7",title:"S que zumba",ipa:"/s/ · /z/",tip:"Muchas S en inglés suenan como zumbido de abeja, zzz, sobre todo al final de palabras. Cambia el significado.",pairs:[["sip","zip"],["price","prize"],["bus","buzz"],["peace","peas"]]},
+ {id:"s8",title:"S inicial sin “e”",ipa:"/s/ + consonante",tip:"Nunca agregues una “e” al inicio: no es “eschool”, es “sss-chool”. Empieza directo con el siseo.",groups:[{label:"practica empezando con sss",words:["school","Spanish","study","street","speak","start","strong","sport"]}]},
+ {id:"s9",title:"Terminación -ed",ipa:"/t/ · /d/ · /ɪd/",tip:"La -ed casi nunca se pronuncia “ed”. Solo suena como sílaba extra después de t o d (wanted, needed).",groups:[{label:"/t/ — después de p, k, s, sh, ch, f",words:["worked","helped","washed","watched","laughed"]},{label:"/d/ — después de sonidos con voz",words:["played","called","lived","cleaned","opened"]},{label:"/ɪd/ — después de t o d",words:["wanted","needed","decided","visited","started"]}]},
+ {id:"s10",title:"La schwa",ipa:"/ə/",tip:"La vocal más común del inglés: una “a” floja y corta en sílabas sin acento. Si pronuncias todas las vocales completas, suenas robótico.",groups:[{label:"escucha cómo se “come” la sílaba débil",words:["about","banana","problem","chocolate","comfortable","vegetable"]}]}
+];
+const LEVELS = [
+ {id:"A2",name:"Básico",d:"Frases simples sobre la vida diaria"},
+ {id:"B1",name:"Intermedio",d:"Te defiendes en viajes y pláticas"},
+ {id:"B2",name:"Intermedio alto",d:"Trabajo y temas complejos"}
+];
+const SCENARIOS = [
+ {id:"interview",title:"Entrevista de trabajo",desc:"Experiencia, fortalezas, retos y salario",role:"a hiring manager at a US company interviewing the learner for a job. Ask one interview question at a time: experience, strengths, a challenge they solved, why this job, salary expectations"},
+ {id:"restaurant",title:"En un restaurante",desc:"Pedir, preguntar por platillos y pagar",role:"a friendly server at a busy diner in Texas taking the learner's order, offering specials and sides, and later bringing the check"},
+ {id:"airport",title:"Migración en el aeropuerto",desc:"Motivo del viaje, estancia y equipaje",role:"a US customs and border officer doing a routine entry interview: purpose of trip, length of stay, where they will stay, what they are bringing"},
+ {id:"hotel",title:"Llegada al hotel",desc:"Check-in, problemas en el cuarto, recomendaciones",role:"a hotel front desk clerk handling check-in, then helping with a small problem in the room and recommending places nearby"},
+ {id:"doctor",title:"Consulta médica",desc:"Describir síntomas y entender indicaciones",role:"a doctor at an urgent care clinic asking about symptoms, how long they have had them, allergies, and giving simple instructions"},
+ {id:"coworker",title:"Plática con un colega",desc:"Small talk del lunes en la oficina",role:"a friendly coworker making small talk at the coffee machine on a Monday morning: weekend, plans, work, light jokes"},
+ {id:"meeting",title:"Junta de trabajo",desc:"Dar avances, opinar y pedir aclaraciones",role:"a team manager running a short weekly status meeting; ask the learner for an update on their project, ask follow-up questions, and ask their opinion on a decision"},
+ {id:"call",title:"Servicio al cliente",desc:"Explicar un problema por teléfono",role:"a customer service agent at an internet provider on the phone; the learner has a problem with their bill or their connection. Ask for account details (fake ones are fine) and try to solve it"},
+ {id:"free",title:"Tema libre",desc:"Tú eliges de qué hablar",role:"a friendly native-speaker conversation partner. Ask what the learner wants to talk about, then follow their lead"}
+];
+const TR_EXAMPLES = ["Se me hizo tarde por el tráfico","¿Me haces el paro?","Ahí nos vemos","Estoy hasta el gorro de trabajo","Ya merito acabo","¿Qué onda, cómo te fue?"];
+
+/* =============== STATE & STORAGE =============== */
+const KEY = "ingles-en-serio-v1";
+const NEW_PER_DAY = 10;
+const blank = () => ({cards:{}, custom:[], quiz:{seen:0, correct:0, miss:{}}, gram:{}, ex:{seen:0, correct:0}, days:{}, level:"B1", placed:"", updatedAt:0});
+function obj(x){ return x && typeof x==="object" && !Array.isArray(x) ? x : {}; }
+function normalize(s){
+  s = obj(s);
+  return {
+    cards: obj(s.cards), custom: Array.isArray(s.custom) ? s.custom.filter(c => c && c.id && c.en) : [],
+    quiz: Object.assign({seen:0,correct:0,miss:{}}, obj(s.quiz)),
+    gram: obj(s.gram), ex: Object.assign({seen:0,correct:0}, obj(s.ex)),
+    days: obj(s.days), level: ["A2","B1","B2"].includes(s.level) ? s.level : "B1",
+    placed: typeof s.placed==="string" ? s.placed : "", updatedAt: Number(s.updatedAt)||0
+  };
+}
+let state = blank();
+try { const raw = localStorage.getItem(KEY); if(raw) state = normalize(JSON.parse(raw)); } catch(e){}
+
+let progressRef = null, saveTimer = null, saving = false, again = false;
+function save(){
+  state.updatedAt = Date.now();
+  const keys = Object.keys(state.days).sort();
+  while(keys.length > 90) delete state.days[keys.shift()];
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(flush, 1200);
+  updateStreakPill();
+}
+async function flush(){
+  if(!progressRef) return;
+  if(saving){ again = true; return; }
+  saving = true;
+  try { await progressRef.set(JSON.parse(JSON.stringify(state))); setSync(true); }
+  catch(e){ setSync(false); }
+  saving = false;
+  if(again){ again = false; flush(); }
+}
+function setSync(ok){
+  $("#syncNote").textContent = ok ? "Tu progreso se guarda en tu cuenta de Claude: lo ves igual en el celular y en la computadora." : "Tu progreso se guarda en este celular.";
+}
+(async function connect(){
+  try{
+    if(!window.claude || !window.claude.use) return;
+    const [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
+    if(!db || !user) return;
+    const id = await user.id();
+    if(!id) return;
+    progressRef = db.doc("data/users/" + id + "/progress");
+    const snap = await progressRef.get();
+    if(snap.exists){
+      const remote = normalize(JSON.parse(JSON.stringify(snap.data())));
+      if(remote.updatedAt > state.updatedAt){
+        state = remote;
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+        resetViews(); show(current);
+      } else if(state.updatedAt > remote.updatedAt){ flush(); }
+    } else if(state.updatedAt){ flush(); }
+    setSync(true);
+  }catch(e){ progressRef = null; }
+})();
+
+/* =============== HELPERS =============== */
+function $(s, r){ return (r||document).querySelector(s); }
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  if(attrs) for(const k in attrs){
+    const v = attrs[k];
+    if(v==null || v===false) continue;
+    if(k==="class") e.className = v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v===true ? "" : v);
+  }
+  for(const c of kids.flat()){ if(c==null||c===false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+function dayIndex(d){ d = d || new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset()*60000)/86400000); }
+function dateKey(d){ d = d || new Date(); const z = n => String(n).padStart(2,"0"); return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate()); }
+const EMPTY_DAY = () => ({c:0,n:0,q:0,g:0,l:0,s:0,m:0});
+function today(){ const k = dateKey(); state.days[k] = Object.assign(EMPTY_DAY(), state.days[k]||{}); return state.days[k]; }
+function peekToday(){ return Object.assign(EMPTY_DAY(), state.days[dateKey()]||{}); }
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+function allCards(){ return CARDS.concat(state.custom); }
+function fill(s, ans){ const parts = ans.split(" / "); let i = 0; return s.replace(/___/g, () => parts[Math.min(i++, parts.length-1)]).replace(/ '/g,"'"); }
+function streak(){
+  let n = 0; const d = new Date();
+  const active = k => { const x = state.days[k]; return x && (x.c||x.q||x.g||x.l||x.s||x.m); };
+  if(!active(dateKey(d))) d.setDate(d.getDate()-1);
+  while(active(dateKey(d))){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function updateStreakPill(){ const s = streak(); $("#streakPill").textContent = "Racha " + s; $("#streakPill").title = s + (s===1?" día":" días") + " seguidos practicando"; }
+
+/* text comparison for listening and speaking */
+const CONTR = {"i'm":"i am","you're":"you are","we're":"we are","they're":"they are","he's":"he is","she's":"she is","it's":"it is","that's":"that is","what's":"what is","where's":"where is","how's":"how is","there's":"there is","let's":"let us","i've":"i have","you've":"you have","we've":"we have","they've":"they have","i'll":"i will","you'll":"you will","we'll":"we will","it'll":"it will","he'll":"he will","she'll":"she will","they'll":"they will","i'd":"i would","you'd":"you would","don't":"do not","doesn't":"does not","didn't":"did not","can't":"can not","cannot":"can not","won't":"will not","isn't":"is not","aren't":"are not","wasn't":"was not","weren't":"were not","haven't":"have not","hasn't":"has not","couldn't":"could not","wouldn't":"would not","shouldn't":"should not","gonna":"going to","wanna":"want to","ok":"okay"};
+const NUMS = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"];
+function tokens(s){
+  s = String(s).toLowerCase().replace(/[’‘`]/g,"'").replace(/[“”"¿¡…]/g," ").replace(/(\d),(\d)/g,"$1$2");
+  s = s.replace(/[^a-z0-9'áéíóúñü\s-]/g," ").replace(/-/g," ");
+  const out = [];
+  for(let w of s.split(/\s+/)){
+    if(!w) continue;
+    w = w.replace(/^'+|'+$/g,"");
+    if(!w) continue;
+    if(CONTR[w]){ out.push(...CONTR[w].split(" ")); continue; }
+    if(/^\d+$/.test(w) && Number(w) <= 12){ out.push(NUMS[Number(w)]); continue; }
+    out.push(w.replace(/'s$/,""));
+  }
+  return out;
+}
+function compare(target, said){
+  const a = tokens(target), b = tokens(said), n = a.length, m = b.length;
+  const dp = Array.from({length:n+1}, () => new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--) for(let j=m-1;j>=0;j--) dp[i][j] = a[i]===b[j] ? dp[i+1][j+1]+1 : Math.max(dp[i+1][j], dp[i][j+1]);
+  const hit = new Array(n).fill(false); let i=0, j=0;
+  while(i<n && j<m){ if(a[i]===b[j]){ hit[i]=true; i++; j++; } else if(dp[i+1][j] >= dp[i][j+1]) i++; else j++; }
+  const extra = Math.max(0, m - dp[0][0]);
+  const score = n ? Math.max(0, Math.round(100 * (dp[0][0] - extra*0.5) / n)) : 0;
+  return {words:a, hit, score};
+}
+function diffView(res){
+  return h("div",{class:"diff","aria-label":"Comparación palabra por palabra"}, res.words.map((w,i) => h("span",{class: res.hit[i] ? "ok":"miss"}, w)));
+}
+
+/* =============== SPEECH =============== */
+const tts = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+const VKEY = "ingles-en-serio-voice";
+let slow = false, voice = null;
+function enVoices(){ try{ return tts ? tts.getVoices().filter(v => /^en([-_]|$)/i.test(v.lang)) : []; }catch(e){ return []; } }
+function pickVoice(){
+  if(!tts) return;
+  const vs = enVoices();
+  let saved = ""; try{ saved = localStorage.getItem(VKEY) || ""; }catch(e){}
+  const us = vs.filter(v => /US/i.test(v.lang));
+  voice = vs.find(v => v.name===saved) || us.find(v => /natural|enhanced|premium|google|samantha|aria|jenny/i.test(v.name)) || us[0] || vs[0] || null;
+  const sel = $("#voiceSel"); sel.replaceChildren();
+  vs.forEach(v => { const o = h("option",{value:v.name}, v.name + " · " + v.lang); if(voice && v.name===voice.name) o.selected = true; sel.append(o); });
+  sel.disabled = !vs.length;
+  $("#voiceNote").textContent = vs.length ? vs.length + " voces en inglés disponibles en este dispositivo." : "Todavía no aparecen voces en inglés. Si sigue así, instala una voz en inglés en los ajustes de texto a voz de tu celular.";
+  $("#ttsWarn").hidden = vs.length > 0 || tts.getVoices().length === 0;
+}
+if(tts){ pickVoice(); try{ tts.addEventListener("voiceschanged", pickVoice); }catch(e){ try{ tts.onvoiceschanged = pickVoice; }catch(_){} } setTimeout(pickVoice, 1500); }
+else { $("#ttsWarn").hidden = false; $("#voiceNote").textContent = "Este navegador no puede leer texto en voz alta."; $("#voiceSel").disabled = true; }
+$("#voiceSel").addEventListener("change", e => {
+  voice = enVoices().find(v => v.name===e.target.value) || voice;
+  try{ localStorage.setItem(VKEY, e.target.value); }catch(_){}
+  speak("Hi! This is how I sound.");
+});
+$("#voiceTest").onclick = () => speak("Hi! I'm looking forward to practicing with you.");
+function speak(text){
+  if(!tts || !text) return;
+  try{
+    tts.cancel();
+    const u = new SpeechSynthesisUtterance(String(text).replace(/…/g,"...").replace(/ \/ /g,". "));
+    u.lang = voice ? voice.lang : "en-US"; if(voice) u.voice = voice; u.rate = slow ? 0.7 : 0.95;
+    tts.speak(u);
+  }catch(e){}
+}
+const ICON_SPEAK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+function speakBtn(text, label){
+  const b = h("button",{class:"speak", type:"button", "aria-label": label || ("Escuchar: " + text), title:"Escuchar", onclick:(e)=>{ e.stopPropagation(); speak(text); }});
+  b.innerHTML = ICON_SPEAK;
+  if(!tts) b.hidden = true;
+  return b;
+}
+function setSlow(v){ slow = v; $("#spNormal").setAttribute("aria-pressed", String(!v)); $("#spSlow").setAttribute("aria-pressed", String(v)); }
+$("#spNormal").onclick = () => setSlow(false);
+$("#spSlow").onclick = () => setSlow(true);
+
+/* =============== NAVIGATION =============== */
+const GROUPS = {hoy:["hoy"], aprender:["tarjetas","gramatica"], practicar:["errores","escuchar","hablar","pron"]};
+const NAMES = {tarjetas:"Tarjetas", gramatica:"Gramática", errores:"Errores típicos", escuchar:"Escuchar", hablar:"Hablar", pron:"Pronunciación", conversar:"Conversar", decir:"¿Cómo se dice?"};
+const lastSub = {hoy:"hoy", aprender:"tarjetas", practicar:"errores", tutor:"conversar"};
+let current = "hoy";
+function groupOf(v){ if(v==="nivel") return "hoy"; for(const g in GROUPS) if(GROUPS[g].includes(v)) return g; return "hoy"; }
+function show(v){
+  if(!document.getElementById("v-"+v)) v = "hoy";
+  current = v;
+  const g = groupOf(v);
+  if(v!=="nivel") lastSub[g] = v;
+  document.querySelectorAll(".bnav button").forEach(b => { if(b.dataset.group===g) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
+  const sn = $("#subnav"); sn.replaceChildren();
+  sn.hidden = GROUPS[g].length < 2;
+  if(!sn.hidden) GROUPS[g].forEach(s => sn.append(h("button",{"aria-current": String(s===v), onclick:()=>show(s)}, NAMES[s])));
+  document.querySelectorAll("section.view").forEach(s => s.hidden = s.id !== "v-"+v);
+  activeMCQ = null;
+  if(v==="hoy") renderHoy();
+  if(v==="nivel") startPlacement();
+  if(v==="tarjetas" && !queue) buildQueue();
+  if(v==="gramatica") renderGramList();
+  if(v==="errores") newQuiz();
+  if(v==="escuchar" && !listen) nextListen();
+  if(v==="hablar" && !spk) nextSpeak();
+  if(v==="conversar" && !chat) renderChatHome();
+  try{ if(location.hash !== "#"+v) history.replaceState(null,"","#"+v); }catch(e){}
+  window.scrollTo(0,0);
+}
+document.querySelectorAll(".bnav button").forEach(b => b.onclick = () => show(lastSub[b.dataset.group]));
+function resetViews(){ queue = null; listen = null; spk = null; }
+
+/* =============== MULTIPLE-CHOICE RUNNER =============== */
+let activeMCQ = null;
+function runMCQ(area, items, o){
+  o = o || {};
+  const st = {i:0, score:0};
+  const orders = items.map(it => shuffle(it.opts.map((_,k)=>k)));
+  function render(){
+    area.replaceChildren();
+    if(st.i >= items.length){ activeMCQ = null; if(o.onDone) o.onDone(st.score, items.length); return; }
+    const it = items[st.i];
+    let answered = false;
+    const box = h("div",{class:"box stack"},
+      h("div",{class:"meta"}, h("span",null,"Pregunta "+(st.i+1)+" de "+items.length), o.noFeedback ? null : h("span",null, st.score+" correctas")),
+      h("div",{class:"progress"}, h("i",{style:"width:"+(100*st.i/items.length)+"%"})),
+      h("p",{class:"q"}, it.prompt),
+      h("p",{class:"sync"}, it.ask || o.ask || "Elige la opción correcta"));
+    const optsEl = h("div",{class:"opts"});
+    orders[st.i].forEach((oi,k) => optsEl.append(h("button",{class:"opt","data-i":oi, onclick:()=>answer(oi)}, h("span",{class:"k"},k+1), h("span",null,it.opts[oi]))));
+    box.append(optsEl);
+    area.append(box);
+    function next(){ st.i++; render(); if(o.scroll !== false) area.scrollIntoView({block:"start"}); }
+    function answer(oi){
+      if(answered) return; answered = true;
+      const ok = oi===0; if(ok) st.score++;
+      if(o.onAnswer) o.onAnswer(it, ok);
+      if(o.noFeedback){ next(); return; }
+      optsEl.querySelectorAll(".opt").forEach(b => { b.disabled = true; const i = Number(b.dataset.i); if(i===0) b.classList.add("right"); else if(i===oi) b.classList.add("wrong"); });
+      const full = it.full || it.opts[0];
+      const nb = h("button",{class:"btn primary", style:"align-self:flex-start", onclick:next}, st.i+1 < items.length ? "Siguiente" : "Ver resultado");
+      box.append(h("div",{class:"why "+(ok?"ok":"no")},
+        h("strong",null, ok ? "¡Correcto!" : "Casi. Lo correcto es:"),
+        h("div",{class:"line"}, speakBtn(full), h("b",null, full)),
+        it.why ? h("p",null, it.why) : null, nb));
+      speak(full);
+      nb.focus({preventScroll:true});
+      nb.scrollIntoView({block:"nearest", behavior:"smooth"});
+    }
+    activeMCQ = {area, key:k => { if(!answered){ const b = optsEl.children[k]; if(b) b.click(); } }};
+  }
+  render();
+}
+document.addEventListener("keydown", e => {
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  if(current==="tarjetas" && queue && qi < queue.length){
+    if(!revealed && (e.code==="Space" || e.key==="Enter")){ e.preventDefault(); reveal(); }
+    else if(revealed && /^[1-4]$/.test(e.key)){ rate(Number(e.key)); }
+  } else if(activeMCQ && activeMCQ.area.isConnected && /^[1-4]$/.test(e.key)){ activeMCQ.key(Number(e.key)-1); }
+});
+
+/* =============== HOY =============== */
+function dueCount(){
+  const t = dayIndex(); let due = 0;
+  for(const c of allCards()){ const s = state.cards[c.id]; if(s && s.due <= t) due++; }
+  const unseen = allCards().filter(c => !state.cards[c.id]).length;
+  return due + Math.min(Math.max(0, NEW_PER_DAY - peekToday().n), unseen);
+}
+function renderHoy(){
+  const d = new Date();
+  $("#todayLabel").textContent = d.toLocaleDateString("es-MX",{weekday:"long", day:"numeric", month:"long"});
+  $("#placeCta").hidden = !!state.placed;
+  const st = streak();
+  $("#stStreak").textContent = st;
+  updateStreakPill();
+  $("#stDue").textContent = dueCount();
+  $("#stMastered").textContent = Object.values(state.cards).filter(s => s && s.int >= 7).length;
+  const seen = state.quiz.seen + state.ex.seen, ok = state.quiz.correct + state.ex.correct;
+  $("#stAcc").textContent = seen ? Math.round(100*ok/seen) + "%" : "–";
+  const td = peekToday();
+  const items = [
+    {t:"Repasa 10 tarjetas", v:td.c, goal:10, go:"tarjetas"},
+    {t:"8 ejercicios de errores o gramática", v:td.q+td.g, goal:8, go: td.q <= td.g ? "errores" : "gramatica"},
+    {t:"6 frases para escuchar o hablar", v:td.l+td.s, goal:6, go: td.l <= td.s ? "escuchar" : "hablar"}
+  ];
+  const plan = $("#plan"); plan.replaceChildren();
+  for(const it of items){
+    const done = it.v >= it.goal, pct = Math.min(100, Math.round(100*it.v/it.goal));
+    plan.append(h("div",{class:"plan-item"+(done?" done":"")},
+      h("span",{class:"check","aria-hidden":"true"}, done ? "✓" : ""),
+      h("div",{style:"min-width:0"}, h("div",null, h("b",null,it.t), " ", h("span",{class:"sync"}, Math.min(it.v,it.goal)+"/"+it.goal)), h("div",{class:"bar"}, h("i",{style:"width:"+pct+"%"}))),
+      h("button",{class:"btn", onclick:()=>show(it.go)}, done ? "Más" : "Ir")));
+  }
+  const c = CARDS[dayIndex() % CARDS.length];
+  $("#phraseDay").replaceChildren(speakBtn(c.en),
+    h("div",{style:"display:flex;flex-direction:column;gap:4px;min-width:0"},
+      h("span",{class:"eyebrow"},"Frase del día"), h("span",{class:"en"}, c.en), h("span",{class:"sync"}, c.es), h("span",{class:"ex"}, c.ex)));
+  const lv = $("#levels"); lv.replaceChildren();
+  for(const L of LEVELS) lv.append(h("button",{class:"level","aria-pressed":String(state.level===L.id), onclick:()=>{ state.level = L.id; save(); renderHoy(); }}, h("b",null,L.id), " ", L.name, h("small",null,L.d)));
+}
+$("#placeBtn").onclick = () => show("nivel");
+$("#placeAgain").onclick = () => show("nivel");
+
+/* =============== PLACEMENT =============== */
+function startPlacement(){
+  const area = $("#placeArea");
+  const items = PLACEMENT.map(p => ({prompt:p.s, opts:p.opts}));
+  runMCQ(area, items, {noFeedback:true, ask:"Completa la oración", onDone:(score, total) => {
+    const lvl = score <= 6 ? "A2" : score <= 11 ? "B1" : "B2";
+    const L = LEVELS.find(l => l.id===lvl);
+    state.level = lvl; state.placed = lvl; save();
+    area.replaceChildren(h("div",{class:"box empty"},
+      h("p",{class:"eyebrow"},"Resultado"),
+      h("h2",null, "Tu nivel: " + lvl + " · " + L.name),
+      h("p",{class:"lede"}, score + " de " + total + " correctas. " + (lvl==="A2" ? "Empieza por las lecciones de gramática A2 y las tarjetas de conversación." : lvl==="B1" ? "Tienes buena base. Enfócate en present perfect, condicionales y en conversar con el tutor." : "Buen nivel. Lo que más te va a servir es conversar con el tutor y pulir pronunciación.")),
+      h("div",{class:"row", style:"justify-content:center"},
+        h("button",{class:"btn primary", onclick:()=>show(lvl==="B2" ? "conversar" : "gramatica")}, lvl==="B2" ? "Ir al tutor" : "Ir a gramática"),
+        h("button",{class:"btn", onclick:()=>show("hoy")},"Volver a Hoy"))));
+  }});
+}
+
+/* =============== TARJETAS =============== */
+let queue = null, qi = 0, revealed = false, catFilter = "Todas";
+function buildQueue(){
+  const t = dayIndex();
+  const pool = allCards().filter(c => catFilter==="Todas" || c.cat===catFilter);
+  const due = pool.filter(c => state.cards[c.id] && state.cards[c.id].due <= t).sort((a,b) => state.cards[a.id].due - state.cards[b.id].due);
+  const fresh = pool.filter(c => !state.cards[c.id]).slice(0, Math.max(0, NEW_PER_DAY - peekToday().n));
+  queue = due.concat(fresh); qi = 0; revealed = false;
+  renderCats(); renderCard();
+}
+function renderCats(){
+  const box = $("#cats"); box.replaceChildren();
+  const cats = ["Todas"].concat(CATS, state.custom.length ? ["Mis frases"] : []);
+  for(const c of cats) box.append(h("button",{class:"chip","aria-pressed":String(catFilter===c), onclick:()=>{ catFilter = c; buildQueue(); }}, c));
+}
+function schedule(s, r){
+  const t = dayIndex();
+  s = s ? Object.assign({}, s) : {int:0, ease:2.5, reps:0, lapses:0};
+  if(r===1){ s.lapses++; s.reps = 0; s.int = 0; s.ease = Math.max(1.3, s.ease-0.2); s.due = t; }
+  else {
+    if(r===2){ s.int = s.reps===0 ? 1 : Math.max(1, Math.round(s.int*1.2)); s.ease = Math.max(1.3, s.ease-0.15); }
+    else if(r===3){ s.int = s.reps===0 ? 1 : s.reps===1 ? 3 : Math.max(s.int+1, Math.round(s.int*s.ease)); }
+    else { s.int = s.reps===0 ? 3 : Math.max(s.int+2, Math.round(Math.max(s.int,1)*s.ease*1.3)); s.ease += 0.15; }
+    s.reps++; s.due = t + s.int;
+  }
+  return s;
+}
+function ivLabel(s, r){ const n = schedule(s, r); return r===1 ? "hoy" : n.int===1 ? "1 día" : n.int+" días"; }
+function renderCard(){
+  const area = $("#cardArea"); area.replaceChildren();
+  if(!queue || qi >= queue.length){
+    area.append(h("div",{class:"box empty"},
+      h("h2",null,"¡Listo por hoy!"),
+      h("p",{class:"lede"},"Ya repasaste todo lo que tocaba. Mañana vuelven las que necesitan repaso. Si quieres seguir, haz una ronda extra con frases al azar."),
+      h("div",{class:"row", style:"justify-content:center"},
+        h("button",{class:"btn primary", onclick:()=>{ const pool = allCards().filter(c => catFilter==="Todas" || c.cat===catFilter); queue = shuffle(pool).slice(0,10); qi = 0; revealed = false; renderCard(); }},"Ronda extra de 10"),
+        h("button",{class:"btn", onclick:()=>show("hablar")},"Practicar hablando"))));
+    return;
+  }
+  const c = queue[qi], s = state.cards[c.id];
+  const card = h("div",{class:"card"},
+    h("div",{class:"meta"}, h("span",{class:"tag"}, c.cat + (!s ? " · nueva" : "")), h("span",null, (qi+1)+" de "+queue.length)),
+    h("p",{class:"sync"},"¿Cómo lo dirías en inglés?"),
+    h("p",{class:"q"}, c.es));
+  if(!revealed){
+    card.append(h("button",{class:"btn primary wide", style:"margin-top:auto;min-height:52px", onclick:reveal}, "Mostrar respuesta"));
+  } else {
+    const ans = h("div",{class:"ans"}, h("div",{class:"line"}, speakBtn(c.en), h("span",{class:"en"}, c.en)));
+    if(c.ex) ans.append(h("div",{class:"line"}, speakBtn(c.ex,"Escuchar ejemplo"), h("span",{class:"ex"}, c.ex)));
+    if(c.note) ans.append(h("p",{class:"note"}, h("b",null,"Ojo: "), c.note));
+    card.append(ans);
+    const labels = ["Otra vez","Difícil","Bien","Fácil"];
+    card.append(h("div",{class:"rate"}, labels.map((l,i) => h("button",{class:"r"+(i+1), onclick:()=>rate(i+1)}, l, h("small",null, ivLabel(s,i+1))))));
+  }
+  area.append(card);
+}
+function reveal(){ revealed = true; renderCard(); speak(queue[qi].en); }
+function rate(r){
+  const c = queue[qi], wasNew = !state.cards[c.id];
+  state.cards[c.id] = schedule(state.cards[c.id], r);
+  const td = today(); td.c++; if(wasNew) td.n++;
+  if(r===1) queue.splice(Math.min(queue.length, qi+4), 0, c);
+  qi++; revealed = false; save(); renderCard();
+}
+
+/* =============== GRAMÁTICA =============== */
+function renderGramList(){
+  const area = $("#gramArea"); area.replaceChildren();
+  area.append(h("div",null, h("p",{class:"eyebrow"},"Ruta de gramática"), h("h1",null,"Lecciones cortas"),
+    h("p",{class:"lede"},"Cada lección explica una sola cosa en español, con ejemplos y 4 ejercicios. Están en orden de utilidad para tu nivel ("+state.level+").")));
+  const order = GRAMMAR.slice().sort((a,b) => { const ra = a.lv===state.level ? 0 : a.lv < state.level ? 1 : 2, rb = b.lv===state.level ? 0 : b.lv < state.level ? 1 : 2; return ra - rb; });
+  area.append(h("div",{class:"lessons"}, order.map(L => {
+    const best = state.gram[L.id];
+    return h("button",{class:"lesson", onclick:()=>openLesson(L)},
+      h("span",{class:"lv"}, L.lv), h("b",null, L.title),
+      best != null ? h("span",{class:"done-badge"}, "Mejor resultado: " + best + "/" + L.ex.length) : h("span",{class:"sync"},"Sin empezar"));
+  })));
+}
+function openLesson(L){
+  const area = $("#gramArea"); area.replaceChildren();
+  const practice = h("div");
+  area.append(
+    h("button",{class:"btn ghost", style:"align-self:flex-start", onclick:renderGramList},"‹ Todas las lecciones"),
+    h("div",null, h("p",{class:"eyebrow"},"Lección · " + L.lv), h("h1",null, L.title)),
+    h("div",{class:"box stack"}, h("ul",{class:"explain"}, L.explain.map(x => h("li",null,x)))),
+    h("div",{class:"box stack"}, h("h3",null,"Ejemplos"), L.examples.map(e => h("div",{class:"line"}, speakBtn(e[0]), h("div",null, h("b",null,e[0]), h("br"), h("span",{class:"sync"},e[1]))))),
+    h("h2",null,"Practica"), practice);
+  window.scrollTo(0,0);
+  const items = shuffle(L.ex).map(x => ({prompt:x.s, opts:x.opts, why:x.why, full:fill(x.s, x.opts[0])}));
+  runMCQ(practice, items, {ask:"Completa el espacio", scroll:false,
+    onAnswer:(it, ok) => { state.ex.seen++; if(ok) state.ex.correct++; today().g++; save(); },
+    onDone:(score, total) => {
+      state.gram[L.id] = Math.max(state.gram[L.id] || 0, score); save();
+      const idx = GRAMMAR.indexOf(L), nextL = GRAMMAR[(idx+1) % GRAMMAR.length];
+      practice.replaceChildren(h("div",{class:"box empty"},
+        h("h2",null, score + " de " + total),
+        h("p",{class:"lede"}, score===total ? "Perfecto. Esta ya la tienes." : "Repite la práctica hasta sacar 4 de 4. Las preguntas cambian de orden."),
+        h("div",{class:"row", style:"justify-content:center"},
+          h("button",{class:"btn primary", onclick:()=>openLesson(L)},"Repetir práctica"),
+          h("button",{class:"btn", onclick:()=>openLesson(nextL)},"Siguiente: " + nextL.title))));
+    }});
+}
+
+/* =============== ERRORES =============== */
+const SESSION = 8;
+function newQuiz(){
+  const miss = state.quiz.miss || {};
+  const weighted = shuffle(QUIZ).sort((a,b) => (miss[b.id]||0) - (miss[a.id]||0));
+  const picks = shuffle(weighted.slice(0,3).concat(shuffle(weighted.slice(3)).slice(0, SESSION-3)));
+  const area = $("#quizArea");
+  runMCQ(area, picks.map(q => ({id:q.id, prompt:q.ctx, opts:q.opts, why:q.why})), {ask:"¿Cuál suena bien en inglés?",
+    onAnswer:(it, ok) => {
+      state.quiz.seen++; if(ok) state.quiz.correct++;
+      state.quiz.miss[it.id] = Math.max(0, (state.quiz.miss[it.id]||0) + (ok ? -1 : 2));
+      today().q++; save();
+    },
+    onDone:(score, total) => {
+      const pct = Math.round(100*score/total);
+      area.replaceChildren(h("div",{class:"box empty"},
+        h("p",{class:"eyebrow"},"Resultado"), h("h2",null, score+" de "+total+" correctas"),
+        h("p",{class:"lede"}, pct>=85 ? "Muy bien. Estos errores ya casi no te van a salir." : pct>=60 ? "Vas bien. Las que fallaste van a aparecer más seguido hasta que se te queden." : "Normal al inicio: son errores que el español te mete en la cabeza. Repite la ronda y verás cómo mejora."),
+        h("button",{class:"btn primary", onclick:newQuiz},"Otra ronda")));
+    }});
+}
+
+/* =============== ESCUCHAR =============== */
+let listen = null;
+const LISTEN_POOL = CARDS.filter(c => c.ex).map(c => ({text:c.ex, es:c.es}));
+function nextListen(){
+  let it; do { it = pick(LISTEN_POOL); } while(listen && LISTEN_POOL.length > 1 && it.text === listen.text);
+  listen = Object.assign({checked:false, plays:0}, it);
+  renderListen();
+}
+function renderListen(){
+  const area = $("#listenArea"); area.replaceChildren();
+  const L = listen;
+  const box = h("div",{class:"box stack"});
+  box.append(h("div",{class:"bigplay"},
+    h("button",{class:"btn primary", onclick:()=>{ L.plays++; speak(L.text); }}, "▶ Escuchar"),
+    h("button",{class:"btn", onclick:()=>{ const s = slow; slow = true; speak(L.text); slow = s; }}, "Más lento")));
+  if(!tts) box.append(h("p",{class:"err"},"Este navegador no puede reproducir audio en inglés, así que este ejercicio no va a funcionar aquí."));
+  const ta = h("textarea",{id:"listenIn", rows:"3", placeholder:"Escribe en inglés lo que escuchaste", autocapitalize:"sentences", spellcheck:"false"});
+  box.append(h("label",{for:"listenIn", class:"eyebrow"},"Lo que escuchaste"), ta);
+  const result = h("div",{class:"stack"});
+  const checkBtn = h("button",{class:"btn primary", onclick:check},"Revisar");
+  box.append(h("div",{class:"row"}, checkBtn,
+    h("button",{class:"btn ghost", onclick:()=>{ ta.value = ""; check(true); }},"No le entendí, muéstramela")), result);
+  area.append(box);
+  function check(giveUp){
+    if(L.checked) return;
+    if(!giveUp && !ta.value.trim()){ ta.focus(); return; }
+    L.checked = true;
+    const res = compare(L.text, ta.value);
+    state.ex.seen++; if(res.score >= 80) state.ex.correct++;
+    today().l++; save();
+    checkBtn.disabled = true;
+    result.append(
+      h("div",{class:"row"}, h("span",{class:"score", style:"color:var(--"+(res.score>=80?"good":res.score>=50?"warm":"bad")+")"}, res.score+"%"),
+        h("span",{class:"sync"}, res.score>=90 ? "¡Excelente oído!" : res.score>=70 ? "Muy cerca. Revisa las palabras en rojo." : "Escúchala otra vez mientras lees la frase.")),
+      diffView(res),
+      h("div",{class:"line"}, speakBtn(L.text), h("div",null, h("b",null, L.text), h("br"), h("span",{class:"sync"}, L.es))),
+      h("button",{class:"btn primary", style:"align-self:flex-start", onclick:nextListen},"Siguiente frase"));
+  }
+}
+
+/* =============== HABLAR =============== */
+let spk = null, spkMode = "leer";
+const SPEAK_POOL = allCards;
+function speakText(c){ return c.en.includes("…") ? (c.ex || c.en.replace(/…/g,"")) : c.en.split(" / ")[0]; }
+function nextSpeak(){
+  const pool = SPEAK_POOL();
+  let c; do { c = pick(pool); } while(spk && pool.length > 1 && c.id === spk.c.id);
+  spk = {c, text:speakText(c), checked:false};
+  renderSpeak();
+}
+function renderSpeak(){
+  const area = $("#speakArea"); area.replaceChildren();
+  const S = spk;
+  area.append(h("div",{class:"seg", role:"group", "aria-label":"Modo", style:"align-self:flex-start;margin-bottom:12px"},
+    h("button",{"aria-pressed":String(spkMode==="leer"), onclick:()=>{ spkMode="leer"; renderSpeak(); }},"Leer en voz alta"),
+    h("button",{"aria-pressed":String(spkMode==="reto"), onclick:()=>{ spkMode="reto"; renderSpeak(); }},"Reto: desde español")));
+  const box = h("div",{class:"box stack"});
+  if(spkMode==="leer"){
+    box.append(h("p",{class:"sync"},"Escucha el modelo y luego dícta la frase:"),
+      h("div",{class:"line"}, speakBtn(S.text), h("span",{class:"en"}, S.text)),
+      h("span",{class:"sync"}, S.c.es));
+  } else {
+    box.append(h("p",{class:"sync"},"Dila en inglés, sin ver la respuesta:"), h("p",{class:"q"}, S.c.es));
+  }
+  const ta = h("textarea",{id:"speakIn", rows:"2", placeholder:"Toca aquí y usa el micrófono del teclado en inglés", autocapitalize:"sentences", spellcheck:"false"});
+  box.append(ta);
+  const result = h("div",{class:"stack"});
+  const checkBtn = h("button",{class:"btn primary", onclick:check},"Revisar mi pronunciación");
+  box.append(h("div",{class:"row"}, checkBtn, h("button",{class:"btn ghost", onclick:nextSpeak},"Otra frase")), result);
+  area.append(box);
+  function check(){
+    if(S.checked) return;
+    if(!ta.value.trim()){ ta.focus(); return; }
+    S.checked = true; checkBtn.disabled = true;
+    const res = compare(S.text, ta.value);
+    state.ex.seen++; if(res.score >= 80) state.ex.correct++;
+    today().s++; save();
+    result.append(
+      h("div",{class:"row"}, h("span",{class:"score", style:"color:var(--"+(res.score>=80?"good":res.score>=50?"warm":"bad")+")"}, res.score+"%"),
+        h("span",{class:"sync"}, res.score>=90 ? "¡Se te entendió perfecto!" : res.score>=70 ? "Bien. Las palabras en rojo no se entendieron: escúchalas y repite." : "Escucha el modelo en lento y repite parte por parte.")),
+      diffView(res),
+      h("p",{class:"sync"}, "El dictado entendió: “" + ta.value.trim() + "”"),
+      h("div",{class:"line"}, speakBtn(S.text), h("b",null, S.text)),
+      h("div",{class:"row"},
+        h("button",{class:"btn", onclick:()=>{ S.checked = false; ta.value = ""; result.replaceChildren(); checkBtn.disabled = false; ta.focus(); }},"Intentar de nuevo"),
+        h("button",{class:"btn primary", onclick:nextSpeak},"Siguiente frase")));
+  }
+}
+
+/* =============== PRONUNCIACIÓN =============== */
+function renderSounds(){
+  const box = $("#sounds"); box.replaceChildren();
+  for(const s of SOUNDS){
+    const card = h("div",{class:"sound"},
+      h("div",{class:"row", style:"justify-content:space-between"}, h("h3",null,s.title), h("span",{class:"ipa"}, s.ipa)),
+      h("p",null, s.tip));
+    if(s.pairs){
+      card.append(h("div",{class:"pairs"}, s.pairs.map(p => h("span",{class:"pair"}, h("button",{onclick:()=>speak(p[0])},p[0]), h("button",{onclick:()=>speak(p[1])},p[1])))));
+      const test = h("div",{class:"test"}, h("button",{class:"btn", onclick:()=>runTest(s, test)},"Ponme a prueba"));
+      card.append(test);
+    }
+    if(s.groups) for(const g of s.groups){
+      card.append(h("span",{class:"grp-label"}, g.label));
+      card.append(h("div",{class:"pairs"}, g.words.map(w => h("button",{class:"word", onclick:()=>speak(w)}, w))));
+    }
+    box.append(card);
+  }
+}
+function runTest(s, box){
+  const pair = pick(s.pairs), target = Math.floor(Math.random()*2);
+  speak(pair[target]);
+  const choices = h("div",{class:"row"});
+  box.replaceChildren(
+    h("div",{class:"row", style:"justify-content:space-between"}, h("span",{class:"sync"},"¿Cuál escuchaste?"), h("button",{class:"btn ghost", onclick:()=>speak(pair[target])},"Repetir audio")),
+    choices);
+  pair.forEach((w,i) => choices.append(h("button",{class:"btn", onclick:(e)=>{
+    const ok = i===target;
+    choices.querySelectorAll("button").forEach(b => b.disabled = true);
+    if(ok) e.currentTarget.classList.add("primary");
+    box.append(h("div",{class:"row", style:"justify-content:space-between"},
+      h("span",{style:"font-weight:700;color:var(--"+(ok?"good":"bad")+")"}, ok ? "¡Bien! Era “"+pair[target]+"”." : "Era “"+pair[target]+"”. Escucha las dos otra vez."),
+      h("button",{class:"btn", onclick:()=>runTest(s, box)},"Otra")));
+  }}, w)));
+}
+
+/* =============== CLAUDE (sample) =============== */
+const samplePromise = (window.claude && window.claude.use) ? claude.use("sample").catch(() => null) : Promise.resolve(null);
+let sampleDead = false;
+function sampleErr(e){
+  const code = e && e.code;
+  if(["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(code)){ sampleDead = true; return "El tutor con IA no está disponible en esta vista. Las demás secciones funcionan normal."; }
+  if(code==="rate_limited") return "Demasiadas solicitudes seguidas o llegaste a tu límite de uso. Espera un rato y vuelve a intentar.";
+  if(code==="session_expired") return "Tu sesión expiró. Vuelve a iniciar sesión en Claude y recarga la página.";
+  if(code==="refused") return "Claude no respondió a ese mensaje. Intenta decirlo de otra forma.";
+  if(code==="invalid_json") return "La respuesta llegó incompleta. Intenta de nuevo.";
+  if(code==="prompt_too_large") return "La conversación ya es muy larga. Empieza una nueva.";
+  return "Hubo un problema de conexión. Intenta de nuevo.";
+}
+const UNAVAILABLE = "El tutor con IA necesita que abras esta página dentro de Claude (app o claude.ai) con tu sesión iniciada. Las demás secciones funcionan sin él.";
+function levelText(){ const L = LEVELS.find(l => l.id===state.level); return state.level + " (" + L.d.toLowerCase() + ")"; }
+
+/* =============== CONVERSAR =============== */
+let chat = null;
+const START = "(Start the conversation now with your first line in character.)";
+function rules(scen){
+  return "You are an expert English tutor and conversation partner for a native Spanish speaker from Mexico. Their level is CEFR " + levelText() + ". They may dictate with their phone keyboard, so ignore missing punctuation and capitalization, but do point out wrong words that suggest a pronunciation problem.\n" +
+  "Role-play: you are " + scen.role + ". Stay in character.\n\n" +
+  "EVERY reply has exactly two parts:\n" +
+  "1) Your in-character reply in natural, spoken American English: 1 to 3 short sentences, vocabulary suited to their level, ending with a question or prompt that keeps the conversation going.\n" +
+  "2) Then a line containing only ---  and after it, feedback IN SPANISH about the learner's LAST message only:\n" +
+  "   - If it had mistakes or sounded unnatural: start with \"Corrección:\" then the corrected English sentence in quotes, then one or two short lines in Spanish explaining why.\n" +
+  "   - If it was correct: start with \"✓ ¡Bien dicho!\" and optionally give a more natural, native-sounding alternative in quotes.\n" +
+  "   - If the learner wrote in Spanish: give them the English way to say it in quotes and ask them to say it in English.\n" +
+  "   - On your very first message (the learner has not spoken yet): after --- write \"Tip:\" and one short tip in Spanish for this situation.\n" +
+  "Never use markdown headings, bold or lists. Never skip the --- line.";
+}
+function splitReply(text){
+  const i = text.search(/\n\s*---/);
+  if(i < 0) return {say:text.trim(), fb:""};
+  return {say:text.slice(0,i).trim(), fb:text.slice(i).replace(/^\s*---\s*/,"").trim()};
+}
+function renderChatHome(){
+  const area = $("#chatArea"); area.replaceChildren();
+  area.append(h("p",{class:"sync", style:"margin-bottom:10px"},"Nivel actual: " + state.level + ". Cámbialo en Hoy."));
+  area.append(h("div",{class:"scen"}, SCENARIOS.map(s => h("button",{onclick:()=>startChat(s)}, h("b",null,s.title), h("small",null,s.desc)))));
+  area.append(h("p",{class:"sync", style:"margin-top:10px"},"Cada mensaje usa tu cuenta de Claude. La primera vez te pide permiso."));
+}
+async function startChat(scen){
+  chat = {scen, turns:[], view:[], busy:false, ctl:null, hints:null, report:null, error:""};
+  renderChat();
+  await ask([{role:"user", content:rules(scen)}, {role:"user", content:START}], true);
+}
+function renderChat(){
+  const area = $("#chatArea"); area.replaceChildren();
+  const sent = chat.turns.filter(t => t.role==="user").length - 2;
+  const top = h("div",{class:"row", style:"justify-content:space-between;margin-bottom:12px"},
+    h("div",null, h("p",{class:"eyebrow"},"Situación · nivel "+state.level), h("h2",null, chat.scen.title)),
+    h("button",{class:"btn ghost", onclick:()=>{ if(chat.ctl) chat.ctl.abort(); chat = null; renderChatHome(); }},"Cambiar situación"));
+  const log = h("div",{class:"chat box", id:"chatLog"});
+  for(const m of chat.view){
+    if(m.role==="me"){ log.append(h("div",{class:"msg me"}, h("div",{class:"bubble"}, m.text))); continue; }
+    const p = splitReply(m.text);
+    const msg = h("div",{class:"msg tu"},
+      h("div",{class:"who"}, p.say && !m.streaming ? speakBtn(p.say,"Escuchar respuesta") : null, "Tutor"),
+      h("div",{class:"bubble"+(!m.text ? " thinking" : "")}, p.say || "Pensando…"));
+    if(p.fb) msg.append(h("div",{class:"fb "+(/^✓/.test(p.fb) ? "okk" : "fix")}, p.fb));
+    log.append(msg);
+  }
+  const input = h("textarea",{id:"chatIn", rows:"2", placeholder:"Escribe o dicta en inglés… (si no sabes cómo, escríbelo en español)", autocapitalize:"sentences"});
+  input.addEventListener("keydown", e => { if(e.key==="Enter" && !e.shiftKey && !("ontouchstart" in window)){ e.preventDefault(); send(); } });
+  log.append(h("div",{class:"composer"}, input,
+    h("div",{class:"row"},
+      h("button",{class:"btn primary", onclick:send, disabled:chat.busy || null},"Enviar"),
+      h("button",{class:"btn", onclick:hints, disabled:chat.busy || null},"¿Qué puedo decir?"),
+      chat.busy ? h("button",{class:"btn ghost", onclick:()=>chat.ctl && chat.ctl.abort()},"Detener") : null)));
+  if(chat.error) log.append(h("p",{class:"err"}, chat.error));
+  if(chat.hints){
+    const hb = h("div",{class:"hints"});
+    if(chat.hints==="loading") hb.append(h("p",{class:"thinking"},"Buscando ideas…"));
+    else chat.hints.forEach(x => hb.append(h("button",{class:"hint", onclick:()=>{ $("#chatIn").value = x.en; $("#chatIn").focus(); }}, x.en, h("small",null,x.es))));
+    log.append(hb);
+  }
+  log.append(h("button",{class:"btn", style:"align-self:flex-start", disabled:(chat.busy || sent < 3) || null, onclick:evaluate}, sent < 3 ? "Evaluar mi conversación (después de 3 mensajes)" : "Evaluar mi conversación"));
+  area.append(top, log);
+  if(chat.report) area.append(renderReport(chat.report));
+}
+async function ask(turns, first){
+  const sample = await samplePromise;
+  if(!sample || sampleDead){ chat.error = UNAVAILABLE; renderChat(); return; }
+  chat.busy = true; chat.error = ""; chat.ctl = new AbortController();
+  const m = {role:"tu", text:"", streaming:true}; chat.view.push(m); renderChat(); scrollChat();
+  try{
+    const res = await sample(turns, {cache:false, signal:chat.ctl.signal, onText:({text}) => { m.text = text; updateLast(m); }});
+    m.text = res.text; m.streaming = false;
+    if(first) chat.turns = turns.slice();
+    chat.turns.push({role:"assistant", content:res.text});
+  }catch(e){
+    m.streaming = false;
+    if(e && e.text){ m.text = e.text; if(!first) chat.turns.push({role:"assistant", content:e.text}); else chat.turns = turns.concat([{role:"assistant", content:e.text}]); }
+    else chat.view.pop();
+    if(!e || e.code!=="cancelled") chat.error = sampleErr(e);
+  }
+  chat.busy = false; renderChat(); scrollChat();
+}
+function updateLast(m){
+  const msgs = document.querySelectorAll("#chatLog .msg.tu"); const el = msgs[msgs.length-1]; if(!el) return;
+  const p = splitReply(m.text);
+  const b = el.querySelector(".bubble"); b.textContent = p.say || "Pensando…"; b.classList.remove("thinking");
+  let fb = el.querySelector(".fb");
+  if(p.fb){ if(!fb){ fb = h("div"); el.append(fb); } fb.textContent = p.fb; fb.className = "fb " + (/^✓/.test(p.fb) ? "okk" : "fix"); }
+}
+function scrollChat(){ const c = $("#chatIn"); if(c) c.scrollIntoView({block:"end", behavior:"smooth"}); }
+async function send(){
+  if(!chat || chat.busy) return;
+  const el = $("#chatIn"); const v = el.value.trim(); if(!v) return;
+  if(chat.turns.length < 2) chat.turns = [{role:"user", content:rules(chat.scen)}, {role:"user", content:START}];
+  chat.view.push({role:"me", text:v}); chat.hints = null;
+  chat.turns.push({role:"user", content:v});
+  if(chat.turns.length > 28){ const head = chat.turns.slice(0,2), tail = chat.turns.slice(-24); chat.turns = head.concat(tail[0].role==="assistant" ? tail : tail.slice(1)); }
+  today().m++; save();
+  await ask(chat.turns.slice(), false);
+}
+function transcript(){ return chat.view.map(m => m.role==="me" ? "Learner: " + m.text : "Tutor: " + splitReply(m.text).say).join("\n"); }
+async function hints(){
+  if(!chat || chat.busy) return;
+  const sample = await samplePromise;
+  if(!sample || sampleDead){ chat.error = UNAVAILABLE; renderChat(); return; }
+  chat.hints = "loading"; renderChat();
+  try{
+    const arr = await sample.json("A Mexican Spanish speaker at CEFR level " + levelText() + " is practicing this role-play: " + chat.scen.title + ".\nConversation so far:\n" + transcript().slice(-3000) +
+      "\n\nSuggest 3 different natural things the learner could say next, short and suited to their level. Reply with only a JSON array like [{\"en\":\"English sentence\",\"es\":\"traducción breve al español\"}].", {modelTier:"quick", cache:false});
+    chat.hints = Array.isArray(arr) ? arr.filter(x => x && x.en).slice(0,3).map(x => ({en:String(x.en), es:String(x.es||"")})) : null;
+  }catch(e){ chat.hints = null; chat.error = sampleErr(e); }
+  renderChat();
+}
+async function evaluate(){
+  if(!chat || chat.busy) return;
+  const sample = await samplePromise;
+  if(!sample || sampleDead){ chat.error = UNAVAILABLE; renderChat(); return; }
+  chat.busy = true; chat.report = {loading:true}; chat.ctl = new AbortController(); renderChat();
+  const rep0 = $("#report"); if(rep0) rep0.scrollIntoView({block:"start", behavior:"smooth"});
+  try{
+    const r = await sample.json("Eres un profesor experto de inglés para hispanohablantes mexicanos. Evalúa solo los mensajes del Learner en esta conversación (situación: " + chat.scen.title + ", nivel declarado " + state.level + "). El learner pudo usar dictado por voz, así que palabras equivocadas pueden indicar problemas de pronunciación: menciónalo si lo notas.\n\n" + transcript().slice(-8000) +
+      "\n\nResponde solo con JSON con esta forma: {\"nivel\":\"nivel MCER estimado y una frase de justificación\",\"bien\":[\"2 o 3 cosas que hizo bien\"],\"errores\":[{\"dijo\":\"frase original del learner\",\"mejor\":\"versión correcta y natural\",\"por_que\":\"explicación breve en español\"}],\"frases\":[{\"en\":\"frase útil en inglés para esta situación\",\"es\":\"significado\"}]}. Máximo 4 errores (los más importantes o repetidos) y 5 frases.", {signal:chat.ctl.signal, cache:false});
+    chat.report = r && typeof r==="object" ? r : null;
+  }catch(e){ chat.report = null; if(!e || e.code!=="cancelled") chat.error = sampleErr(e); }
+  chat.busy = false; renderChat();
+  const rep = $("#report"); if(rep) rep.scrollIntoView({behavior:"smooth", block:"start"});
+}
+function renderReport(r){
+  const box = h("div",{class:"box report stack", id:"report", style:"margin-top:14px"});
+  if(r.loading){ box.append(h("p",{class:"thinking"},"Revisando tu conversación… tarda unos segundos.")); return box; }
+  box.append(h("p",{class:"eyebrow"},"Evaluación"), h("h2",null,"Cómo te fue"));
+  if(r.nivel) box.append(h("p",null, h("b",null,"Nivel estimado: "), String(r.nivel)));
+  if(Array.isArray(r.bien) && r.bien.length) box.append(h("h3",null,"Lo que hiciste bien"), h("ul",null, r.bien.map(x => h("li",null,String(x)))));
+  if(Array.isArray(r.errores) && r.errores.length){
+    box.append(h("h3",null,"Para trabajar"), h("ul",null, r.errores.map(e => h("li",null,
+      h("span",{style:"text-decoration:line-through;color:var(--bad)"}, String(e.dijo||"")), " → ", h("b",{style:"color:var(--good)"}, String(e.mejor||"")), h("br"), h("span",{class:"sync"}, String(e.por_que||""))))));
+  }
+  if(Array.isArray(r.frases) && r.frases.length){
+    box.append(h("h3",null,"Frases para tu próxima conversación"));
+    box.append(h("div",{class:"stack", style:"gap:8px"}, r.frases.filter(f => f && f.en).map(f => h("div",{class:"line"}, speakBtn(String(f.en)),
+      h("div",{style:"flex:1;min-width:0"}, h("b",null,String(f.en)), h("br"), h("span",{class:"sync"},String(f.es||""))),
+      h("button",{class:"btn ghost", onclick:(e)=>{ addCustom(String(f.es||f.en), String(f.en), ""); e.currentTarget.textContent = "Guardada"; e.currentTarget.disabled = true; }},"Guardar")))));
+  }
+  return box;
+}
+
+/* =============== ¿CÓMO SE DICE? =============== */
+function addCustom(es, en, note){
+  if(!en || state.custom.some(c => c.en.toLowerCase()===en.toLowerCase())) return;
+  state.custom.push({id:"u"+Date.now().toString(36)+Math.random().toString(36).slice(2,5), cat:"Mis frases", es, en, ex:"", note});
+  save(); queue = null;
+}
+$("#trExamples").append(...TR_EXAMPLES.map(t => h("button",{class:"chip", onclick:()=>{ $("#trIn").value = t; translate(); }}, t)));
+$("#trBtn").onclick = translate;
+let trBusy = false;
+async function translate(){
+  const text = $("#trIn").value.trim();
+  if(!text || trBusy) return;
+  const out = $("#trOut");
+  const sample = await samplePromise;
+  if(!sample || sampleDead){ out.replaceChildren(h("p",{class:"err"}, UNAVAILABLE)); return; }
+  trBusy = true; $("#trBtn").disabled = true; $("#trStatus").textContent = "Pensando…";
+  try{
+    const r = await sample.json("A Mexican Spanish speaker (CEFR level " + levelText() + ") wants to say this in English, including any Mexican slang or idioms:\n\"\"\"" + text.slice(0,600) + "\"\"\"\n\n" +
+      "Give 3 natural options that a native American English speaker would actually say, ordered from casual to formal. Reply with only JSON: {\"options\":[{\"en\":\"...\",\"register\":\"casual|neutral|formal\",\"note\":\"explicación breve en español: cuándo usarla y qué matiz tiene\"}],\"tip\":\"un consejo breve en español sobre el error que se cometería al traducirlo literalmente, o cadena vacía\"}", {modelTier:"quick"});
+    const opts = (r && Array.isArray(r.options)) ? r.options.filter(o => o && o.en).slice(0,3) : [];
+    if(!opts.length) throw {code:"invalid_json"};
+    const box = h("div",{class:"box"});
+    opts.forEach(o => {
+      const en = String(o.en), note = String(o.note||"");
+      box.append(h("div",{class:"tr-opt"},
+        h("div",{class:"row"}, h("span",{class:"reg"}, String(o.register||"")),
+          h("button",{class:"btn ghost", style:"margin-left:auto", onclick:(e)=>{ addCustom(text, en, note); e.currentTarget.textContent = "Guardada en tarjetas"; e.currentTarget.disabled = true; }},"Guardar en tarjetas")),
+        h("div",{class:"line"}, speakBtn(en), h("span",{class:"en"}, en)),
+        note ? h("p",{class:"sync"}, note) : null));
+    });
+    out.replaceChildren(box);
+    if(r.tip) out.append(h("p",{class:"note", style:"margin-top:12px"}, h("b",null,"Ojo: "), String(r.tip)));
+  }catch(e){ out.replaceChildren(h("p",{class:"err"}, sampleErr(e))); }
+  trBusy = false; $("#trBtn").disabled = false; $("#trStatus").textContent = "";
+}
+
+/* =============== BOOT =============== */
+renderSounds();
+updateStreakPill();
+const start = (location.hash || "").slice(1);
+show(document.getElementById("v-"+start) ? start : "hoy");
+window.addEventListener("hashchange", () => { const t = location.hash.slice(1); if(t && t!==current && document.getElementById("v-"+t)) show(t); });
+if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
+})();
+</script>
+</body></html>
